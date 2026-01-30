@@ -13,7 +13,7 @@ import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 
 public class Test_FrontPage extends Application {
-
+// DELETE
     @Override
     public void start(Stage stage) {
         String path = getClass().getResource("/assets/Millionaire_Mover.mp4").toExternalForm();
@@ -27,7 +27,7 @@ public class Test_FrontPage extends Application {
         mediaView.setPreserveRatio(false); // stretch to fill
         mediaView.setFitWidth(900);
         mediaView.setFitHeight(900);
-        //Git Test DELETE
+        
         // Create your UI elements
         Button playBtn = new Button("Play");
         Button pauseBtn = new Button("Pause");
