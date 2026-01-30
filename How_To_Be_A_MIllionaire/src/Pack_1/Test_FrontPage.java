@@ -27,7 +27,7 @@ public class Test_FrontPage extends Application {
         mediaView.setPreserveRatio(false); // stretch to fill
         mediaView.setFitWidth(900);
         mediaView.setFitHeight(900);
-
+        //Git Test DELETE
         // Create your UI elements
         Button playBtn = new Button("Play");
         Button pauseBtn = new Button("Pause");
