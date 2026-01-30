@@ -1,0 +1,1006 @@
+[
+  {
+    "id": "T01-Q01",
+    "tier": 1,
+    "question": "Which of these animals is commonly kept as a household pet?",
+    "answers": [
+      { "label": "A", "text": "Dog", "correct": true },
+      { "label": "B", "text": "Shark", "correct": false },
+      { "label": "C", "text": "Eagle", "correct": false },
+      { "label": "D", "text": "Crocodile", "correct": false }
+    ]
+  },
+  {
+    "id": "T01-Q02",
+    "tier": 1,
+    "question": "What color is the sky on a clear, sunny day?",
+    "answers": [
+      { "label": "A", "text": "Blue", "correct": true },
+      { "label": "B", "text": "Purple", "correct": false },
+      { "label": "C", "text": "Orange", "correct": false },
+      { "label": "D", "text": "Brown", "correct": false }
+    ]
+  },
+  {
+    "id": "T01-Q03",
+    "tier": 1,
+    "question": "Which of these is a common breakfast food?",
+    "answers": [
+      { "label": "A", "text": "Cereal", "correct": true },
+      { "label": "B", "text": "Motor oil", "correct": false },
+      { "label": "C", "text": "Sand", "correct": false },
+      { "label": "D", "text": "Chalk", "correct": false }
+    ]
+  },
+  {
+    "id": "T01-Q04",
+    "tier": 1,
+    "question": "Which of these is used to call someone on the phone?",
+    "answers": [
+      { "label": "A", "text": "Smartphone", "correct": true },
+      { "label": "B", "text": "Toaster", "correct": false },
+      { "label": "C", "text": "Microwave", "correct": false },
+      { "label": "D", "text": "Vacuum cleaner", "correct": false }
+    ]
+  },
+  {
+    "id": "T01-Q05",
+    "tier": 1,
+    "question": "Which of these is a hot drink often served in the morning?",
+    "answers": [
+      { "label": "A", "text": "Coffee", "correct": true },
+      { "label": "B", "text": "Ketchup", "correct": false },
+      { "label": "C", "text": "Shampoo", "correct": false },
+      { "label": "D", "text": "Glue", "correct": false }
+    ]
+  },
+  {
+    "id": "T01-Q06",
+    "tier": 1,
+    "question": "Which of these is typically worn on your feet?",
+    "answers": [
+      { "label": "A", "text": "Shoes", "correct": true },
+      { "label": "B", "text": "Gloves", "correct": false },
+      { "label": "C", "text": "Hat", "correct": false },
+      { "label": "D", "text": "Scarf", "correct": false }
+    ]
+  },
+
+  {
+    "id": "T02-Q01",
+    "tier": 2,
+    "question": "Which month has an extra day in a leap year?",
+    "answers": [
+      { "label": "A", "text": "February", "correct": true },
+      { "label": "B", "text": "June", "correct": false },
+      { "label": "C", "text": "September", "correct": false },
+      { "label": "D", "text": "November", "correct": false }
+    ]
+  },
+  {
+    "id": "T02-Q02",
+    "tier": 2,
+    "question": "Which of these is a primary color of light?",
+    "answers": [
+      { "label": "A", "text": "Red", "correct": true },
+      { "label": "B", "text": "Cyan", "correct": false },
+      { "label": "C", "text": "Magenta", "correct": false },
+      { "label": "D", "text": "Yellow-green", "correct": false }
+    ]
+  },
+  {
+    "id": "T02-Q03",
+    "tier": 2,
+    "question": "Which continent is France located on?",
+    "answers": [
+      { "label": "A", "text": "Europe", "correct": true },
+      { "label": "B", "text": "Asia", "correct": false },
+      { "label": "C", "text": "Africa", "correct": false },
+      { "label": "D", "text": "South America", "correct": false }
+    ]
+  },
+  {
+    "id": "T02-Q04",
+    "tier": 2,
+    "question": "Which of these is a stringed musical instrument?",
+    "answers": [
+      { "label": "A", "text": "Violin", "correct": true },
+      { "label": "B", "text": "Trumpet", "correct": false },
+      { "label": "C", "text": "Trombone", "correct": false },
+      { "label": "D", "text": "Tuba", "correct": false }
+    ]
+  },
+  {
+    "id": "T02-Q05",
+    "tier": 2,
+    "question": "Which of these is a common web browser?",
+    "answers": [
+      { "label": "A", "text": "Google Chrome", "correct": true },
+      { "label": "B", "text": "Adobe Painter", "correct": false },
+      { "label": "C", "text": "FileZilla", "correct": false },
+      { "label": "D", "text": "VLC Player", "correct": false }
+    ]
+  },
+  {
+    "id": "T02-Q06",
+    "tier": 2,
+    "question": "Which of these is a unit of time?",
+    "answers": [
+      { "label": "A", "text": "Minute", "correct": true },
+      { "label": "B", "text": "Liter", "correct": false },
+      { "label": "C", "text": "Gram", "correct": false },
+      { "label": "D", "text": "Meter", "correct": false }
+    ]
+  },
+
+  {
+    "id": "T03-Q01",
+    "tier": 3,
+    "question": "What is the capital city of Canada?",
+    "answers": [
+      { "label": "A", "text": "Ottawa", "correct": true },
+      { "label": "B", "text": "Toronto", "correct": false },
+      { "label": "C", "text": "Vancouver", "correct": false },
+      { "label": "D", "text": "Montreal", "correct": false }
+    ]
+  },
+  {
+    "id": "T03-Q02",
+    "tier": 3,
+    "question": "Which planet is known as the Red Planet?",
+    "answers": [
+      { "label": "A", "text": "Mars", "correct": true },
+      { "label": "B", "text": "Venus", "correct": false },
+      { "label": "C", "text": "Jupiter", "correct": false },
+      { "label": "D", "text": "Mercury", "correct": false }
+    ]
+  },
+  {
+    "id": "T03-Q03",
+    "tier": 3,
+    "question": "Which of these is a famous painting by Leonardo da Vinci?",
+    "answers": [
+      { "label": "A", "text": "Mona Lisa", "correct": true },
+      { "label": "B", "text": "The Starry Night", "correct": false },
+      { "label": "C", "text": "The Scream", "correct": false },
+      { "label": "D", "text": "Girl with a Pearl Earring", "correct": false }
+    ]
+  },
+  {
+    "id": "T03-Q04",
+    "tier": 3,
+    "question": "Which of these is a programming language?",
+    "answers": [
+      { "label": "A", "text": "Java", "correct": true },
+      { "label": "B", "text": "Photoshop", "correct": false },
+      { "label": "C", "text": "Excel", "correct": false },
+      { "label": "D", "text": "PowerPoint", "correct": false }
+    ]
+  },
+  {
+    "id": "T03-Q05",
+    "tier": 3,
+    "question": "Which ocean lies on the east coast of the United States?",
+    "answers": [
+      { "label": "A", "text": "Atlantic Ocean", "correct": true },
+      { "label": "B", "text": "Pacific Ocean", "correct": false },
+      { "label": "C", "text": "Indian Ocean", "correct": false },
+      { "label": "D", "text": "Arctic Ocean", "correct": false }
+    ]
+  },
+  {
+    "id": "T03-Q06",
+    "tier": 3,
+    "question": "Which of these sports is typically played with a racket?",
+    "answers": [
+      { "label": "A", "text": "Tennis", "correct": true },
+      { "label": "B", "text": "Soccer", "correct": false },
+      { "label": "C", "text": "Rugby", "correct": false },
+      { "label": "D", "text": "Baseball", "correct": false }
+    ]
+  },
+
+  {
+    "id": "T04-Q01",
+    "tier": 4,
+    "question": "Which element has the chemical symbol 'O'?",
+    "answers": [
+      { "label": "A", "text": "Oxygen", "correct": true },
+      { "label": "B", "text": "Gold", "correct": false },
+      { "label": "C", "text": "Osmium", "correct": false },
+      { "label": "D", "text": "Oganesson", "correct": false }
+    ]
+  },
+  {
+    "id": "T04-Q02",
+    "tier": 4,
+    "question": "Which country is home to the city of Tokyo?",
+    "answers": [
+      { "label": "A", "text": "Japan", "correct": true },
+      { "label": "B", "text": "China", "correct": false },
+      { "label": "C", "text": "South Korea", "correct": false },
+      { "label": "D", "text": "Thailand", "correct": false }
+    ]
+  },
+  {
+    "id": "T04-Q03",
+    "tier": 4,
+    "question": "Which of these authors wrote '1984'?",
+    "answers": [
+      { "label": "A", "text": "George Orwell", "correct": true },
+      { "label": "B", "text": "J.R.R. Tolkien", "correct": false },
+      { "label": "C", "text": "Jane Austen", "correct": false },
+      { "label": "D", "text": "Mark Twain", "correct": false }
+    ]
+  },
+  {
+    "id": "T04-Q04",
+    "tier": 4,
+    "question": "Which of these is the largest planet in our solar system?",
+    "answers": [
+      { "label": "A", "text": "Jupiter", "correct": true },
+      { "label": "B", "text": "Earth", "correct": false },
+      { "label": "C", "text": "Mars", "correct": false },
+      { "label": "D", "text": "Venus", "correct": false }
+    ]
+  },
+  {
+    "id": "T04-Q05",
+    "tier": 4,
+    "question": "Which of these is a famous landmark in Paris?",
+    "answers": [
+      { "label": "A", "text": "Eiffel Tower", "correct": true },
+      { "label": "B", "text": "Big Ben", "correct": false },
+      { "label": "C", "text": "Colosseum", "correct": false },
+      { "label": "D", "text": "Statue of Liberty", "correct": false }
+    ]
+  },
+  {
+    "id": "T04-Q06",
+    "tier": 4,
+    "question": "Which of these is a type of cloud?",
+    "answers": [
+      { "label": "A", "text": "Cumulus", "correct": true },
+      { "label": "B", "text": "Basalt", "correct": false },
+      { "label": "C", "text": "Granite", "correct": false },
+      { "label": "D", "text": "Marble", "correct": false }
+    ]
+  },
+
+  {
+    "id": "T05-Q01",
+    "tier": 5,
+    "question": "Which scientist proposed the three laws of motion?",
+    "answers": [
+      { "label": "A", "text": "Isaac Newton", "correct": true },
+      { "label": "B", "text": "Albert Einstein", "correct": false },
+      { "label": "C", "text": "Niels Bohr", "correct": false },
+      { "label": "D", "text": "Galileo Galilei", "correct": false }
+    ]
+  },
+  {
+    "id": "T05-Q02",
+    "tier": 5,
+    "question": "Which of these countries is landlocked?",
+    "answers": [
+      { "label": "A", "text": "Switzerland", "correct": true },
+      { "label": "B", "text": "Portugal", "correct": false },
+      { "label": "C", "text": "Japan", "correct": false },
+      { "label": "D", "text": "Australia", "correct": false }
+    ]
+  },
+  {
+    "id": "T05-Q03",
+    "tier": 5,
+    "question": "Which language is primarily spoken in Brazil?",
+    "answers": [
+      { "label": "A", "text": "Portuguese", "correct": true },
+      { "label": "B", "text": "Spanish", "correct": false },
+      { "label": "C", "text": "French", "correct": false },
+      { "label": "D", "text": "English", "correct": false }
+    ]
+  },
+  {
+    "id": "T05-Q04",
+    "tier": 5,
+    "question": "Which of these is a prime number?",
+    "answers": [
+      { "label": "A", "text": "17", "correct": true },
+      { "label": "B", "text": "18", "correct": false },
+      { "label": "C", "text": "20", "correct": false },
+      { "label": "D", "text": "21", "correct": false }
+    ]
+  },
+  {
+    "id": "T05-Q05",
+    "tier": 5,
+    "question": "Which of these composers wrote the 'Fifth Symphony' in C minor?",
+    "answers": [
+      { "label": "A", "text": "Ludwig van Beethoven", "correct": true },
+      { "label": "B", "text": "Johann Sebastian Bach", "correct": false },
+      { "label": "C", "text": "Wolfgang Amadeus Mozart", "correct": false },
+      { "label": "D", "text": "Franz Schubert", "correct": false }
+    ]
+  },
+  {
+    "id": "T05-Q06",
+    "tier": 5,
+    "question": "Which of these is the smallest prime number?",
+    "answers": [
+      { "label": "A", "text": "2", "correct": true },
+      { "label": "B", "text": "1", "correct": false },
+      { "label": "C", "text": "3", "correct": false },
+      { "label": "D", "text": "5", "correct": false }
+    ]
+  },
+
+  {
+    "id": "T06-Q01",
+    "tier": 6,
+    "question": "Which gas makes up the largest portion of Earth's atmosphere?",
+    "answers": [
+      { "label": "A", "text": "Nitrogen", "correct": true },
+      { "label": "B", "text": "Oxygen", "correct": false },
+      { "label": "C", "text": "Carbon dioxide", "correct": false },
+      { "label": "D", "text": "Argon", "correct": false }
+    ]
+  },
+  {
+    "id": "T06-Q02",
+    "tier": 6,
+    "question": "Which empire was ruled by Genghis Khan?",
+    "answers": [
+      { "label": "A", "text": "Mongol Empire", "correct": true },
+      { "label": "B", "text": "Roman Empire", "correct": false },
+      { "label": "C", "text": "Ottoman Empire", "correct": false },
+      { "label": "D", "text": "Persian Empire", "correct": false }
+    ]
+  },
+  {
+    "id": "T06-Q03",
+    "tier": 6,
+    "question": "Which of these numbers is a perfect square?",
+    "answers": [
+      { "label": "A", "text": "81", "correct": true },
+      { "label": "B", "text": "45", "correct": false },
+      { "label": "C", "text": "50", "correct": false },
+      { "label": "D", "text": "63", "correct": false }
+    ]
+  },
+  {
+    "id": "T06-Q04",
+    "tier": 6,
+    "question": "Which scientist is best known for the theory of general relativity?",
+    "answers": [
+      { "label": "A", "text": "Albert Einstein", "correct": true },
+      { "label": "B", "text": "Isaac Newton", "correct": false },
+      { "label": "C", "text": "Marie Curie", "correct": false },
+      { "label": "D", "text": "James Clerk Maxwell", "correct": false }
+    ]
+  },
+  {
+    "id": "T06-Q05",
+    "tier": 6,
+    "question": "Which of these countries does the equator pass through?",
+    "answers": [
+      { "label": "A", "text": "Ecuador", "correct": true },
+      { "label": "B", "text": "Spain", "correct": false },
+      { "label": "C", "text": "Italy", "correct": false },
+      { "label": "D", "text": "Germany", "correct": false }
+    ]
+  },
+  {
+    "id": "T06-Q06",
+    "tier": 6,
+    "question": "Which of these is the longest river in the world by most measurements?",
+    "answers": [
+      { "label": "A", "text": "Nile", "correct": true },
+      { "label": "B", "text": "Amazon", "correct": false },
+      { "label": "C", "text": "Yangtze", "correct": false },
+      { "label": "D", "text": "Mississippi", "correct": false }
+    ]
+  },
+
+  {
+    "id": "T07-Q01",
+    "tier": 7,
+    "question": "Which of these composers is associated with the 'Four Seasons' concertos?",
+    "answers": [
+      { "label": "A", "text": "Antonio Vivaldi", "correct": true },
+      { "label": "B", "text": "Johannes Brahms", "correct": false },
+      { "label": "C", "text": "Richard Wagner", "correct": false },
+      { "label": "D", "text": "Claude Debussy", "correct": false }
+    ]
+  },
+  {
+    "id": "T07-Q02",
+    "tier": 7,
+    "question": "Which of these cities is located in the Southern Hemisphere?",
+    "answers": [
+      { "label": "A", "text": "Sydney", "correct": true },
+      { "label": "B", "text": "London", "correct": false },
+      { "label": "C", "text": "New York", "correct": false },
+      { "label": "D", "text": "Paris", "correct": false }
+    ]
+  },
+  {
+    "id": "T07-Q03",
+    "tier": 7,
+    "question": "Which of these is the chemical formula for table salt?",
+    "answers": [
+      { "label": "A", "text": "NaCl", "correct": true },
+      { "label": "B", "text": "H2O", "correct": false },
+      { "label": "C", "text": "CO2", "correct": false },
+      { "label": "D", "text": "O2", "correct": false }
+    ]
+  },
+  {
+    "id": "T07-Q04",
+    "tier": 7,
+    "question": "Which of these novels was written by Mary Shelley?",
+    "answers": [
+      { "label": "A", "text": "Frankenstein", "correct": true },
+      { "label": "B", "text": "Dracula", "correct": false },
+      { "label": "C", "text": "Jane Eyre", "correct": false },
+      { "label": "D", "text": "Wuthering Heights", "correct": false }
+    ]
+  },
+  {
+    "id": "T07-Q05",
+    "tier": 7,
+    "question": "Which of these countries was formerly known as Persia?",
+    "answers": [
+      { "label": "A", "text": "Iran", "correct": true },
+      { "label": "B", "text": "Iraq", "correct": false },
+      { "label": "C", "text": "Syria", "correct": false },
+      { "label": "D", "text": "Lebanon", "correct": false }
+    ]
+  },
+  {
+    "id": "T07-Q06",
+    "tier": 7,
+    "question": "Which of these is the largest desert in the world by area?",
+    "answers": [
+      { "label": "A", "text": "Antarctic Desert", "correct": true },
+      { "label": "B", "text": "Sahara Desert", "correct": false },
+      { "label": "C", "text": "Gobi Desert", "correct": false },
+      { "label": "D", "text": "Arabian Desert", "correct": false }
+    ]
+  },
+
+  {
+    "id": "T08-Q01",
+    "tier": 8,
+    "question": "Which physicist is credited with discovering the electron?",
+    "answers": [
+      { "label": "A", "text": "J.J. Thomson", "correct": true },
+      { "label": "B", "text": "Ernest Rutherford", "correct": false },
+      { "label": "C", "text": "Max Planck", "correct": false },
+      { "label": "D", "text": "Enrico Fermi", "correct": false }
+    ]
+  },
+  {
+    "id": "T08-Q02",
+    "tier": 8,
+    "question": "Which of these countries is NOT a member of the European Union?",
+    "answers": [
+      { "label": "A", "text": "Norway", "correct": true },
+      { "label": "B", "text": "Germany", "correct": false },
+      { "label": "C", "text": "Italy", "correct": false },
+      { "label": "D", "text": "Spain", "correct": false }
+    ]
+  },
+  {
+    "id": "T08-Q03",
+    "tier": 8,
+    "question": "Which of these artists is associated with the Cubist movement?",
+    "answers": [
+      { "label": "A", "text": "Pablo Picasso", "correct": true },
+      { "label": "B", "text": "Salvador Dalí", "correct": false },
+      { "label": "C", "text": "Edvard Munch", "correct": false },
+      { "label": "D", "text": "Henri Matisse", "correct": false }
+    ]
+  },
+  {
+    "id": "T08-Q04",
+    "tier": 8,
+    "question": "Which of these is the SI unit of electric current?",
+    "answers": [
+      { "label": "A", "text": "Ampere", "correct": true },
+      { "label": "B", "text": "Volt", "correct": false },
+      { "label": "C", "text": "Ohm", "correct": false },
+      { "label": "D", "text": "Watt", "correct": false }
+    ]
+  },
+  {
+    "id": "T08-Q05",
+    "tier": 8,
+    "question": "Which of these battles was fought during the Napoleonic Wars?",
+    "answers": [
+      { "label": "A", "text": "Battle of Waterloo", "correct": true },
+      { "label": "B", "text": "Battle of Hastings", "correct": false },
+      { "label": "C", "text": "Battle of Agincourt", "correct": false },
+      { "label": "D", "text": "Battle of Thermopylae", "correct": false }
+    ]
+  },
+  {
+    "id": "T08-Q06",
+    "tier": 8,
+    "question": "Which of these is the largest internal organ in the human body?",
+    "answers": [
+      { "label": "A", "text": "Liver", "correct": true },
+      { "label": "B", "text": "Heart", "correct": false },
+      { "label": "C", "text": "Lung", "correct": false },
+      { "label": "D", "text": "Kidney", "correct": false }
+    ]
+  },
+
+  {
+    "id": "T09-Q01",
+    "tier": 9,
+    "question": "Which mathematician is known for the last theorem that was proved by Andrew Wiles?",
+    "answers": [
+      { "label": "A", "text": "Pierre de Fermat", "correct": true },
+      { "label": "B", "text": "Leonhard Euler", "correct": false },
+      { "label": "C", "text": "Carl Gauss", "correct": false },
+      { "label": "D", "text": "Bernhard Riemann", "correct": false }
+    ]
+  },
+  {
+    "id": "T09-Q02",
+    "tier": 9,
+    "question": "Which of these countries has the largest population?",
+    "answers": [
+      { "label": "A", "text": "India", "correct": true },
+      { "label": "B", "text": "United States", "correct": false },
+      { "label": "C", "text": "Indonesia", "correct": false },
+      { "label": "D", "text": "Brazil", "correct": false }
+    ]
+  },
+  {
+    "id": "T09-Q03",
+    "tier": 9,
+    "question": "Which of these is the main component of natural gas?",
+    "answers": [
+      { "label": "A", "text": "Methane", "correct": true },
+      { "label": "B", "text": "Propane", "correct": false },
+      { "label": "C", "text": "Butane", "correct": false },
+      { "label": "D", "text": "Ethane", "correct": false }
+    ]
+  },
+  {
+    "id": "T09-Q04",
+    "tier": 9,
+    "question": "Which of these philosophers wrote 'Critique of Pure Reason'?",
+    "answers": [
+      { "label": "A", "text": "Immanuel Kant", "correct": true },
+      { "label": "B", "text": "Friedrich Nietzsche", "correct": false },
+      { "label": "C", "text": "Jean-Paul Sartre", "correct": false },
+      { "label": "D", "text": "David Hume", "correct": false }
+    ]
+  },
+  {
+    "id": "T09-Q05",
+    "tier": 9,
+    "question": "Which of these is the capital city of New Zealand?",
+    "answers": [
+      { "label": "A", "text": "Wellington", "correct": true },
+      { "label": "B", "text": "Auckland", "correct": false },
+      { "label": "C", "text": "Christchurch", "correct": false },
+      { "label": "D", "text": "Dunedin", "correct": false }
+    ]
+  },
+  {
+    "id": "T09-Q06",
+    "tier": 9,
+    "question": "Which of these particles is electrically neutral?",
+    "answers": [
+      { "label": "A", "text": "Neutron", "correct": true },
+      { "label": "B", "text": "Proton", "correct": false },
+      { "label": "C", "text": "Electron", "correct": false },
+      { "label": "D", "text": "Positron", "correct": false }
+    ]
+  },
+
+  {
+    "id": "T10-Q01",
+    "tier": 10,
+    "question": "Which of these writers is associated with magical realism?",
+    "answers": [
+      { "label": "A", "text": "Gabriel García Márquez", "correct": true },
+      { "label": "B", "text": "Ernest Hemingway", "correct": false },
+      { "label": "C", "text": "F. Scott Fitzgerald", "correct": false },
+      { "label": "D", "text": "George Eliot", "correct": false }
+    ]
+  },
+  {
+    "id": "T10-Q02",
+    "tier": 10,
+    "question": "Which of these is the largest moon of Saturn?",
+    "answers": [
+      { "label": "A", "text": "Titan", "correct": true },
+      { "label": "B", "text": "Europa", "correct": false },
+      { "label": "C", "text": "Ganymede", "correct": false },
+      { "label": "D", "text": "Callisto", "correct": false }
+    ]
+  },
+  {
+    "id": "T10-Q03",
+    "tier": 10,
+    "question": "Which of these wars ended with the Treaty of Versailles?",
+    "answers": [
+      { "label": "A", "text": "World War I", "correct": true },
+      { "label": "B", "text": "World War II", "correct": false },
+      { "label": "C", "text": "Franco-Prussian War", "correct": false },
+      { "label": "D", "text": "Crimean War", "correct": false }
+    ]
+  },
+  {
+    "id": "T10-Q04",
+    "tier": 10,
+    "question": "Which of these is the logarithm base commonly used in scientific notation?",
+    "answers": [
+      { "label": "A", "text": "Base 10", "correct": true },
+      { "label": "B", "text": "Base 2", "correct": false },
+      { "label": "C", "text": "Base e", "correct": false },
+      { "label": "D", "text": "Base 16", "correct": false }
+    ]
+  },
+  {
+    "id": "T10-Q05",
+    "tier": 10,
+    "question": "Which of these countries is part of the Scandinavian Peninsula?",
+    "answers": [
+      { "label": "A", "text": "Norway", "correct": true },
+      { "label": "B", "text": "Netherlands", "correct": false },
+      { "label": "C", "text": "Belgium", "correct": false },
+      { "label": "D", "text": "Denmark (mainland)", "correct": false }
+    ]
+  },
+  {
+    "id": "T10-Q06",
+    "tier": 10,
+    "question": "Which of these is the main pigment involved in photosynthesis?",
+    "answers": [
+      { "label": "A", "text": "Chlorophyll", "correct": true },
+      { "label": "B", "text": "Melanin", "correct": false },
+      { "label": "C", "text": "Hemoglobin", "correct": false },
+      { "label": "D", "text": "Keratin", "correct": false }
+    ]
+  },
+
+  {
+    "id": "T11-Q01",
+    "tier": 11,
+    "question": "Which of these mathematicians introduced the concept of imaginary numbers?",
+    "answers": [
+      { "label": "A", "text": "Gerolamo Cardano", "correct": true },
+      { "label": "B", "text": "René Descartes", "correct": false },
+      { "label": "C", "text": "Blaise Pascal", "correct": false },
+      { "label": "D", "text": "Gottfried Leibniz", "correct": false }
+    ]
+  },
+  {
+    "id": "T11-Q02",
+    "tier": 11,
+    "question": "Which of these countries was once known as Ceylon?",
+    "answers": [
+      { "label": "A", "text": "Sri Lanka", "correct": true },
+      { "label": "B", "text": "Myanmar", "correct": false },
+      { "label": "C", "text": "Laos", "correct": false },
+      { "label": "D", "text": "Cambodia", "correct": false }
+    ]
+  },
+  {
+    "id": "T11-Q03",
+    "tier": 11,
+    "question": "Which of these scientists first proposed the heliocentric model in the Renaissance?",
+    "answers": [
+      { "label": "A", "text": "Nicolaus Copernicus", "correct": true },
+      { "label": "B", "text": "Johannes Kepler", "correct": false },
+      { "label": "C", "text": "Tycho Brahe", "correct": false },
+      { "label": "D", "text": "Ptolemy", "correct": false }
+    ]
+  },
+  {
+    "id": "T11-Q04",
+    "tier": 11,
+    "question": "Which of these is the capital of the Canadian province of British Columbia?",
+    "answers": [
+      { "label": "A", "text": "Victoria", "correct": true },
+      { "label": "B", "text": "Vancouver", "correct": false },
+      { "label": "C", "text": "Kelowna", "correct": false },
+      { "label": "D", "text": "Prince George", "correct": false }
+    ]
+  },
+  {
+    "id": "T11-Q05",
+    "tier": 11,
+    "question": "Which of these is the longest bone in the human body?",
+    "answers": [
+      { "label": "A", "text": "Femur", "correct": true },
+      { "label": "B", "text": "Humerus", "correct": false },
+      { "label": "C", "text": "Tibia", "correct": false },
+      { "label": "D", "text": "Radius", "correct": false }
+    ]
+  },
+  {
+    "id": "T11-Q06",
+    "tier": 11,
+    "question": "Which of these is the smallest country in the world by area?",
+    "answers": [
+      { "label": "A", "text": "Vatican City", "correct": true },
+      { "label": "B", "text": "Monaco", "correct": false },
+      { "label": "C", "text": "San Marino", "correct": false },
+      { "label": "D", "text": "Liechtenstein", "correct": false }
+    ]
+  },
+
+  {
+    "id": "T12-Q01",
+    "tier": 12,
+    "question": "Which of these scientists discovered penicillin?",
+    "answers": [
+      { "label": "A", "text": "Alexander Fleming", "correct": true },
+      { "label": "B", "text": "Louis Pasteur", "correct": false },
+      { "label": "C", "text": "Robert Koch", "correct": false },
+      { "label": "D", "text": "Joseph Lister", "correct": false }
+    ]
+  },
+  {
+    "id": "T12-Q02",
+    "tier": 12,
+    "question": "Which of these rivers flows through Baghdad?",
+    "answers": [
+      { "label": "A", "text": "Tigris", "correct": true },
+      { "label": "B", "text": "Euphrates", "correct": false },
+      { "label": "C", "text": "Jordan", "correct": false },
+      { "label": "D", "text": "Nile", "correct": false }
+    ]
+  },
+  {
+    "id": "T12-Q03",
+    "tier": 12,
+    "question": "Which of these is the main metal in bronze?",
+    "answers": [
+      { "label": "A", "text": "Copper", "correct": true },
+      { "label": "B", "text": "Iron", "correct": false },
+      { "label": "C", "text": "Aluminum", "correct": false },
+      { "label": "D", "text": "Zinc", "correct": false }
+    ]
+  },
+  {
+    "id": "T12-Q04",
+    "tier": 12,
+    "question": "Which of these philosophers wrote 'Being and Time'?",
+    "answers": [
+      { "label": "A", "text": "Martin Heidegger", "correct": true },
+      { "label": "B", "text": "Ludwig Wittgenstein", "correct": false },
+      { "label": "C", "text": "Bertrand Russell", "correct": false },
+      { "label": "D", "text": "Michel Foucault", "correct": false }
+    ]
+  },
+  {
+    "id": "T12-Q05",
+    "tier": 12,
+    "question": "Which of these is the capital city of Ethiopia?",
+    "answers": [
+      { "label": "A", "text": "Addis Ababa", "correct": true },
+      { "label": "B", "text": "Nairobi", "correct": false },
+      { "label": "C", "text": "Kampala", "correct": false },
+      { "label": "D", "text": "Dar es Salaam", "correct": false }
+    ]
+  },
+  {
+    "id": "T12-Q06",
+    "tier": 12,
+    "question": "Which of these is the largest island in the world that is not a continent?",
+    "answers": [
+      { "label": "A", "text": "Greenland", "correct": true },
+      { "label": "B", "text": "New Guinea", "correct": false },
+      { "label": "C", "text": "Borneo", "correct": false },
+      { "label": "D", "text": "Madagascar", "correct": false }
+    ]
+  },
+
+  {
+    "id": "T13-Q01",
+    "tier": 13,
+    "question": "Which of these scientists formulated the laws of planetary motion?",
+    "answers": [
+      { "label": "A", "text": "Johannes Kepler", "correct": true },
+      { "label": "B", "text": "Galileo Galilei", "correct": false },
+      { "label": "C", "text": "Edmond Halley", "correct": false },
+      { "label": "D", "text": "Henri Poincaré", "correct": false }
+    ]
+  },
+  {
+    "id": "T13-Q02",
+    "tier": 13,
+    "question": "Which of these cities is located at the highest elevation above sea level?",
+    "answers": [
+      { "label": "A", "text": "La Paz", "correct": true },
+      { "label": "B", "text": "Mexico City", "correct": false },
+      { "label": "C", "text": "Denver", "correct": false },
+      { "label": "D", "text": "Johannesburg", "correct": false }
+    ]
+  },
+  {
+    "id": "T13-Q03",
+    "tier": 13,
+    "question": "Which of these is the main component of the Sun by mass?",
+    "answers": [
+      { "label": "A", "text": "Hydrogen", "correct": true },
+      { "label": "B", "text": "Helium", "correct": false },
+      { "label": "C", "text": "Oxygen", "correct": false },
+      { "label": "D", "text": "Carbon", "correct": false }
+    ]
+  },
+  {
+    "id": "T13-Q04",
+    "tier": 13,
+    "question": "Which of these works was composed by Igor Stravinsky?",
+    "answers": [
+      { "label": "A", "text": "The Rite of Spring", "correct": true },
+      { "label": "B", "text": "Swan Lake", "correct": false },
+      { "label": "C", "text": "The Nutcracker", "correct": false },
+      { "label": "D", "text": "Carmen", "correct": false }
+    ]
+  },
+  {
+    "id": "T13-Q05",
+    "tier": 13,
+    "question": "Which of these is the capital of the U.S. state of Alaska?",
+    "answers": [
+      { "label": "A", "text": "Juneau", "correct": true },
+      { "label": "B", "text": "Anchorage", "correct": false },
+      { "label": "C", "text": "Fairbanks", "correct": false },
+      { "label": "D", "text": "Sitka", "correct": false }
+    ]
+  },
+  {
+    "id": "T13-Q06",
+    "tier": 13,
+    "question": "Which of these is the largest of the Great Lakes by surface area?",
+    "answers": [
+      { "label": "A", "text": "Lake Superior", "correct": true },
+      { "label": "B", "text": "Lake Michigan", "correct": false },
+      { "label": "C", "text": "Lake Huron", "correct": false },
+      { "label": "D", "text": "Lake Erie", "correct": false }
+    ]
+  },
+
+  {
+    "id": "T14-Q01",
+    "tier": 14,
+    "question": "Which of these physicists developed the uncertainty principle?",
+    "answers": [
+      { "label": "A", "text": "Werner Heisenberg", "correct": true },
+      { "label": "B", "text": "Erwin Schrödinger", "correct": false },
+      { "label": "C", "text": "Paul Dirac", "correct": false },
+      { "label": "D", "text": "Max Born", "correct": false }
+    ]
+  },
+  {
+    "id": "T14-Q02",
+    "tier": 14,
+    "question": "Which of these ancient cities was buried by the eruption of Mount Vesuvius in 79 AD?",
+    "answers": [
+      { "label": "A", "text": "Pompeii", "correct": true },
+      { "label": "B", "text": "Carthage", "correct": false },
+      { "label": "C", "text": "Troy", "correct": false },
+      { "label": "D", "text": "Babylon", "correct": false }
+    ]
+  },
+  {
+    "id": "T14-Q03",
+    "tier": 14,
+    "question": "Which of these is the largest satellite of the planet Jupiter?",
+    "answers": [
+      { "label": "A", "text": "Ganymede", "correct": true },
+      { "label": "B", "text": "Io", "correct": false },
+      { "label": "C", "text": "Europa", "correct": false },
+      { "label": "D", "text": "Callisto", "correct": false }
+    ]
+  },
+  {
+    "id": "T14-Q04",
+    "tier": 14,
+    "question": "Which of these novels was written by Fyodor Dostoevsky?",
+    "answers": [
+      { "label": "A", "text": "Crime and Punishment", "correct": true },
+      { "label": "B", "text": "War and Peace", "correct": false },
+      { "label": "C", "text": "Anna Karenina", "correct": false },
+      { "label": "D", "text": "Fathers and Sons", "correct": false }
+    ]
+  },
+  {
+    "id": "T14-Q05",
+    "tier": 14,
+    "question": "Which of these is the deepest known point in Earth's oceans?",
+    "answers": [
+      { "label": "A", "text": "Challenger Deep", "correct": true },
+      { "label": "B", "text": "Tonga Trench", "correct": false },
+      { "label": "C", "text": "Puerto Rico Trench", "correct": false },
+      { "label": "D", "text": "Java Trench", "correct": false }
+    ]
+  },
+  {
+    "id": "T14-Q06",
+    "tier": 14,
+    "question": "Which of these is the chemical symbol for the element tungsten?",
+    "answers": [
+      { "label": "A", "text": "W", "correct": true },
+      { "label": "B", "text": "Tu", "correct": false },
+      { "label": "C", "text": "Tg", "correct": false },
+      { "label": "D", "text": "Tn", "correct": false }
+    ]
+  },
+
+  {
+    "id": "T15-Q01",
+    "tier": 15,
+    "question": "Which of these mathematicians is credited with introducing the concept of a 'set' in modern set theory?",
+    "answers": [
+      { "label": "A", "text": "Georg Cantor", "correct": true },
+      { "label": "B", "text": "David Hilbert", "correct": false },
+      { "label": "C", "text": "Kurt Gödel", "correct": false },
+      { "label": "D", "text": "Henri Lebesgue", "correct": false }
+    ]
+  },
+  {
+    "id": "T15-Q02",
+    "tier": 15,
+    "question": "Which of these treaties formally ended the Thirty Years' War in 1648?",
+    "answers": [
+      { "label": "A", "text": "Peace of Westphalia", "correct": true },
+      { "label": "B", "text": "Treaty of Utrecht", "correct": false },
+      { "label": "C", "text": "Treaty of Paris", "correct": false },
+      { "label": "D", "text": "Treaty of Vienna", "correct": false }
+    ]
+  },
+  {
+    "id": "T15-Q03",
+    "tier": 15,
+    "question": "Which of these is the most abundant element in Earth's crust by weight?",
+    "answers": [
+      { "label": "A", "text": "Oxygen", "correct": true },
+      { "label": "B", "text": "Silicon", "correct": false },
+      { "label": "C", "text": "Aluminum", "correct": false },
+      { "label": "D", "text": "Iron", "correct": false }
+    ]
+  },
+  {
+    "id": "T15-Q04",
+    "tier": 15,
+    "question": "Which of these composers wrote the opera 'Tristan und Isolde'?",
+    "answers": [
+      { "label": "A", "text": "Richard Wagner", "correct": true },
+      { "label": "B", "text": "Giuseppe Verdi", "correct": false },
+      { "label": "C", "text": "Giacomo Puccini", "correct": false },
+      { "label": "D", "text": "Richard Strauss", "correct": false }
+    ]
+  },
+  {
+    "id": "T15-Q05",
+    "tier": 15,
+    "question": "Which of these galaxies is the closest large spiral galaxy to the Milky Way?",
+    "answers": [
+      { "label": "A", "text": "Andromeda Galaxy", "correct": true },
+      { "label": "B", "text": "Triangulum Galaxy", "correct": false },
+      { "label": "C", "text": "Whirlpool Galaxy", "correct": false },
+      { "label": "D", "text": "Sombrero Galaxy", "correct": false }
+    ]
+  },
+  {
+    "id": "T15-Q06",
+    "tier": 15,
+    "question": "Which of these philosophers is known for the work 'The Phenomenology of Spirit'?",
+    "answers": [
+      { "label": "A", "text": "G.W.F. Hegel", "correct": true },
+      { "label": "B", "text": "Karl Marx", "correct": false },
+      { "label": "C", "text": "Søren Kierkegaard", "correct": false },
+      { "label": "D", "text": "Friedrich Engels", "correct": false }
+    ]
+  }
+]
