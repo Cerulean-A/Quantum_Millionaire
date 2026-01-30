@@ -13,7 +13,7 @@ import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 
 public class Test_FrontPage extends Application {
-// DELETE
+// DELETE1
     @Override
     public void start(Stage stage) {
         String path = getClass().getResource("/assets/Millionaire_Mover.mp4").toExternalForm();
