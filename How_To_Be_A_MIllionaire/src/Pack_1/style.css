@@ -1,76 +1,68 @@
 /* =============================================================================
    QUANTUM MILLIONAIRE - MASTER STYLESHEET
-   Theme: Electric Blue, Deep Purple, and Gold
    ============================================================================= */
-/*DELETE1*/
-/* --- LADDER (Left Side) --- */
+
+/* --- DEFAULT ELEMENTS --- */
 .ladder-container {
-    -fx-background-color: rgba(0,0,0,0.6); /* Semi-transparent backing */
-    -fx-padding: 15;
-    -fx-border-color: #d4af37; /* Gold border */
+    -fx-background-color: rgba(0,0,0,0.6);
+    -fx-padding: 20;
+    -fx-border-color: #d4af37;
     -fx-border-width: 2;
     -fx-background-radius: 10;
+    -fx-min-width: 200px;
+    -fx-pref-width: 200px;
+    -fx-max-width: 200px;
+	-fx-translate-x: 20px;
 }
 
 .ladder-cell {
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-padding: 3 10 3 10;
-    -fx-background-color: transparent;
 }
 
 #current-level {
-    -fx-background-color: #e67e22; /* Orange highlight for current prize */
+    -fx-background-color: #e67e22;
     -fx-text-fill: black;
     -fx-background-radius: 5;
-    -fx-effect: dropshadow(gaussian, black, 5, 0, 0, 0);
 }
 
-/* --- DASHBOARD (Top Right) --- */
 .dashboard-box {
     -fx-background-color: linear-gradient(to bottom, #000044, #000022);
-    -fx-border-color: #d4af37; /* Gold */
+    -fx-border-color: #d4af37;
     -fx-border-width: 2;
     -fx-background-radius: 15;
     -fx-padding: 10 30 10 30;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 
 .timer-box {
     -fx-background-color: rgba(0,0,0,0.6);
     -fx-border-color: #d4af37;
-    -fx-border-width: 0 0 2 0; /* Bottom border only style */
+    -fx-border-width: 0 0 2 0;
     -fx-padding: 5 20 5 20;
     -fx-background-radius: 20;
 }
 
-/* --- LIFELINES (Bottom Left) --- */
 .lifeline-panel {
     -fx-background-color: linear-gradient(#2b1055, #110524);
     -fx-border-color: #d4af37;
     -fx-border-width: 2;
-    -fx-background-radius: 30; /* Oval shape */
+    -fx-background-radius: 30;
     -fx-padding: 10 20 10 20;
-    -fx-min-width: 200;
+    -fx-min-width: 200px; 
+    -fx-max-width: 200px;
 }
 
 .lifeline-btn {
-    -fx-background-radius: 50%; /* Perfect circle */
+    -fx-background-radius: 50;
     -fx-min-width: 50px;
     -fx-min-height: 50px;
     -fx-background-color: #00008B;
     -fx-text-fill: white;
     -fx-border-color: #a0a0a0;
-    -fx-font-weight: bold;
     -fx-cursor: hand;
 }
 
-.lifeline-btn:hover {
-    -fx-background-color: #4169E1; /* Glow on hover */
-    -fx-effect: dropshadow(gaussian, #4169E1, 10, 0, 0, 0);
-}
-
-/* --- GAME BOARD (Center/Right) --- */
 .question-box {
     -fx-background-color: linear-gradient(to right, #2b1055, #4b0082, #2b1055);
     -fx-border-color: #d4af37;
@@ -80,8 +72,6 @@
     -fx-text-fill: white;
     -fx-font-size: 22px;
     -fx-font-weight: bold;
-    -fx-min-width: 800; /* Force wide width */
-    -fx-effect: dropshadow(three-pass-box, black, 10, 0, 0, 5);
     -fx-alignment: center;
 }
 
@@ -89,48 +79,90 @@
     -fx-background-color: linear-gradient(#2b1055, #110524);
     -fx-border-color: #d4af37;
     -fx-border-width: 2;
-    -fx-background-radius: 30; /* Rounded pill shape */
-    -fx-text-fill: white; /* Gold text */
+    -fx-background-radius: 30;
+    -fx-text-fill: white;
     -fx-font-size: 18px;
-    -fx-font-weight: bold;
-    -fx-alignment: CENTER_LEFT;
-    -fx-padding: 10 10 10 30; /* Space for "A:" */
     -fx-cursor: hand;
+    -fx-padding: 10 10 10 30;
 }
 
-/* HOVER EFFECTS */
 .answer-btn:hover {
-    -fx-background-color: #e67e22; /* Orange glow */
+    -fx-background-color: #e67e22;
     -fx-text-fill: black;
-    -fx-effect: dropshadow(gaussian, #e67e22, 15, 0, 0, 0);
 }
 
-/* --- MENU DIAMOND (Bottom Right) --- */
+/* --- MENU DIAMOND --- */
 .menu-diamond {
-    /* Define the Diamond Shape using SVG path syntax */
     -fx-shape: "M 50 0 L 100 50 L 50 100 L 0 50 Z"; 
-    
     -fx-min-width: 60px;
     -fx-min-height: 60px;
-    -fx-background-color: #888888; /* Silver/Grey base */
-    -fx-opacity: 0.4; /* The "Watermark" look (semi-transparent) */
+    -fx-background-color: #888888;
+    -fx-opacity: 0.4;
     -fx-cursor: hand;
     -fx-border-color: white;
-    -fx-border-width: 2;
 }
 
-/* HOVER: Wake up the button */
 .menu-diamond:hover {
-    -fx-opacity: 1.0; /* Fully visible */
-    -fx-background-color: #d4af37; /* Turns Gold */
-    -fx-effect: dropshadow(gaussian, gold, 10, 0, 0, 0); /* Glow */
-    -fx-scale-x: 1.1; /* Slight pop */
+    -fx-opacity: 1.0;
+    -fx-background-color: #d4af37;
+    -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
 }
 
-/* CLICK: Press effect */
-.menu-diamond:pressed {
-    -fx-background-color: #b8860b; /* Darker Gold */
-    -fx-scale-x: 0.95;
-    -fx-scale-y: 0.95;
+/* =============================================================================
+   LOOK AND FEEL (Shapes & Fonts Only)
+   ============================================================================= */
+
+/* --- MODERN / QUANTUM STYLE (Sharp & Digital) --- */
+.modern-style .question-box, 
+.modern-style .answer-btn,
+.modern-style .lifeline-panel,
+.modern-style .ladder-container {
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-font-family: "Courier New";
+}
+
+.modern-style .ladder-container {
+    -fx-border-style: dashed;
+}
+
+/* --- CLASSIC STYLE (Rounded & Traditional) --- */
+.classic-style .question-box,
+.classic-style .answer-btn {
+    -fx-background-radius: 45;
+    -fx-border-radius: 45;
+    -fx-font-family: "Serif";
+}
+
+/* =============================================================================
+   ACCESSIBILITY THEMES (Colors Only)
+   ============================================================================= */
+
+/* --- DEUTERANOPIA (Red-Green Blind) --- */
+.theme-deuteranopia .question-box, 
+.theme-deuteranopia .answer-btn,
+.theme-deuteranopia .lifeline-panel,
+.theme-deuteranopia .ladder-container {
+    -fx-background-color: #005ab5; 
+    -fx-border-color: #ffdd00 !important;
+}
+
+.theme-deuteranopia #current-level {
+    -fx-background-color: #ffdd00; 
+    -fx-text-fill: black;
+}
+
+/* --- TRITANOPIA (Blue-Yellow Blind) --- */
+.theme-tritanopia .question-box, 
+.theme-tritanopia .answer-btn,
+.theme-tritanopia .lifeline-panel,
+.theme-tritanopia .ladder-container {
+    -fx-background-color: #004d40; 
+    -fx-border-color: #ff4081 !important;
+}
+
+.theme-tritanopia #current-level {
+    -fx-background-color: #ff4081;
+    -fx-text-fill: white;
 }
