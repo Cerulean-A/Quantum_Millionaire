@@ -2,180 +2,158 @@ package Pack_1;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Menu;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.transform.Scale;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class GameStage extends Application {
 
-    // =============================================================================================
-    // 1. THE "ATOMIC" DESIGN GRID
-    // =============================================================================================
-    // We will place all buttons/text based on this 1920x1080 "Virtual Paper".
-    // Do not change these numbers. They are the fixed coordinate system.
-    private static final double DESIGN_WIDTH = 1920; 
-    private static final double DESIGN_HEIGHT = 1080;
+    private static final double WINDOW_WIDTH = 1280;
+    private static final double WINDOW_HEIGHT = 720;
 
-    // =============================================================================================
-    // 2. USER RESOLUTION OPTIONS
-    // =============================================================================================
-    // These are the physical window sizes the user can toggle between.
-    
-    // Option A: 720p (Windowed, small)
-    private static final double RES_720P_WIDTH = 1280;
-    private static final double RES_720P_HEIGHT = 720;
-
-    // Option B: 1080p (Standard Full HD)
-    private static final double RES_1080P_WIDTH = 1920; 
-    private static final double RES_1080P_HEIGHT = 1080;
-    
-    // Option C: 4K (Ultra HD)
-    private static final double RES_4K_WIDTH = 3840; 
-    private static final double RES_4K_HEIGHT = 2160;
-
-    // --- DEVELOPER SWITCH ---
-    // Change this variable to test different "User Selections"
-    // Set to: 1=720p, 2=1080p, 3=4K
-    private static final int SELECTED_RESOLUTION_OPTION = 3; 
+    // --- UI FIELDS ---
+    private Label questionLabel;
+    private Label earnTitle;
+    private Label earnValue;
+    private Label timeLabel;
+    private Label ladderHeader;
+    private Label lifelineHeader;
+    private Button btnA, btnB, btnC, btnD;
+    private StackPane root;
 
     @Override
     public void start(Stage primaryStage) {
-        
-        // --- STEP 1: DETERMINE TARGET WINDOW SIZE ---
-        double targetWidth, targetHeight;
+        root = new StackPane();
 
-        switch (SELECTED_RESOLUTION_OPTION) {
-            case 1:  targetWidth = RES_720P_WIDTH; targetHeight = RES_720P_HEIGHT; break;
-            case 3:  targetWidth = RES_4K_WIDTH;   targetHeight = RES_4K_HEIGHT;   break;
-            default: targetWidth = RES_1080P_WIDTH; targetHeight = RES_1080P_HEIGHT;
-        }
-
-        // --- STEP 2: SAFETY CLAMP (The "Fit to Screen" Logic) ---
-        // If the user asks for 4K but the screen is only 1080p, we must shrink the window.
-        // This is a universal guard-rail, however. It a screen only supports 480p, it will size to it.
-        // to fit the screen, otherwise controls will be unreachable.
-        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        
-        // Check if target is wider than the physical screen
-        if (targetWidth > screenBounds.getWidth() || targetHeight > screenBounds.getHeight()) {
-            System.out.println("(!) Requested resolution " + targetWidth + "x" + targetHeight + " is too large for this screen.");
-            
-            // Calculate the max scale that fits the screen
-            double widthRatio = screenBounds.getWidth() / targetWidth;
-            double heightRatio = screenBounds.getHeight() / targetHeight;
-            double safeScale = Math.min(widthRatio, heightRatio);
-            
-            // Apply the safe scale (e.g., shrink 4K down to fit on a 1080p laptop)
-            targetWidth = targetWidth * safeScale;
-            targetHeight = targetHeight * safeScale;
-            
-            System.out.println(" -> Resized window to " + targetWidth + "x" + targetHeight);
-        }
-
-        // --- STEP 3: SETUP ROOT & BACKGROUND ---
-        StackPane root = new StackPane();
-        // Determine centering behavior (Black bars if aspect ratio mismatches)
-        root.setStyle("-fx-background-color: black;"); 
-
+        // 1. Background Logic
         ImageView backgroundView = new ImageView();
         try {
-            Image bgImage = new Image("studio_bg.jpg"); 
+            Image bgImage = new Image("studio_bg.jpg");
             backgroundView.setImage(bgImage);
-            backgroundView.setPreserveRatio(true); // Keep art aspect ratio correct
-            backgroundView.setFitWidth(targetWidth);
-            backgroundView.setFitHeight(targetHeight);
+            backgroundView.setPreserveRatio(false);
+
+            // Binds the image size to the window size so it stays full-screen when resized
+            backgroundView.fitWidthProperty().bind(primaryStage.widthProperty());
+            backgroundView.fitHeightProperty().bind(primaryStage.heightProperty());
         } catch (Exception e) {
-            root.setStyle("-fx-background-color: linear-gradient(to bottom, #000000, #1a0b2e);"); 
+            root.setStyle("-fx-background-color: linear-gradient(to bottom, #000000, #1a0b2e);");
         }
 
-        // --- STEP 4: THE UI LAYER (The Scalable Canvas) ---
-        // This Pane is ALWAYS 1920x1080 internally.
-        Pane uiLayer = new Pane();
-        uiLayer.setPrefSize(DESIGN_WIDTH, DESIGN_HEIGHT);
-        uiLayer.setMaxSize(DESIGN_WIDTH, DESIGN_HEIGHT);
+        // 2. Main Layout
+        BorderPane mainLayout = new BorderPane();
+        mainLayout.setPadding(new Insets(20));
 
-        // --- STEP 5: CALCULATE SCALE FACTOR ---
-        // How much do we shrink/grow the 1920 design to fit the actual window?
-        // Example: If Window is 1280 (720p) and Design is 1920. Scale = 0.66
-        double scaleFactor = targetWidth / DESIGN_WIDTH;
-        
-        Scale scale = new Scale(scaleFactor, scaleFactor);
-        scale.setPivotX(0);
-        scale.setPivotY(0);
-        uiLayer.getTransforms().add(scale);
+        mainLayout.setLeft(createMoneyLadder());
 
-        // --- STEP 6: PLACE ATOMIC ASSETS (Based on 1920x1080 Grid) ---
-        
-        // Left: Money Ladder
-        VBox moneyLadder = createMoneyLadder();
-        moneyLadder.relocate(30, 75); 
-        uiLayer.getChildren().add(moneyLadder);
+        HBox topContainer = new HBox(createTopRightDashboard());
+        topContainer.setAlignment(Pos.TOP_RIGHT);
+        mainLayout.setTop(topContainer);
 
-        // Top Right: Dashboard
-        VBox topRightPanel = createTopRightDashboard();
-        topRightPanel.relocate(1500, 30);
-        uiLayer.getChildren().add(topRightPanel);
+        mainLayout.setBottom(createBottomRegion());
 
-        // Bottom Left: Lifelines
-        VBox lifelinesPanel = createLifelinePanel(); 
-        lifelinesPanel.relocate(30, 870);
-        uiLayer.getChildren().add(lifelinesPanel);
+        // Background goes first so it stays behind the UI
+        root.getChildren().addAll(backgroundView, mainLayout);
 
-        // Center: Game Board
-        VBox gameBoard = createGameBoard();
-        gameBoard.relocate(560, 720); 
-        uiLayer.getChildren().add(gameBoard);
+        Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-        // Bottom Right: Menu
-        StackPane menuButton = createMenuDiamond();
-        menuButton.relocate(1770, 930);
-        uiLayer.getChildren().add(menuButton);
+        // Link CSS
+        try {
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        } catch (Exception e) {
+            System.out.println("CSS file not found. Ensure style.css is in the same folder.");
+        }
 
-        // --- FINALIZE ---
-        root.getChildren().addAll(backgroundView, uiLayer);
+        // --- ASSIGNMENT REQUIREMENTS: Resizable & Team Name ---
+        primaryStage.setTitle("Quantum Millionaire - Team Ria");
+        primaryStage.setResizable(true);
+        primaryStage.setMinWidth(1100);
+        primaryStage.setMinHeight(700);
 
-        Scene scene = new Scene(root, targetWidth, targetHeight);
-        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-
-        primaryStage.setTitle("Quantum Millionaire [Res: " + (int)targetWidth + "x" + (int)targetHeight + "]");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     // ==============================================================================================
-    // REGION BUILDERS (Designed for 1920x1080 Canvas)
+    // LOGIC METHODS
+    // ==============================================================================================
+
+    private void switchToFarsi() {
+        questionLabel.setText("کدام سیاره به 'سیاره سرخ' معروف است؟");
+        earnTitle.setText("دارایی:");
+        timeLabel.setText("۲۴ ثانیه");
+        ladderHeader.setText("ارزش سوال");
+        lifelineHeader.setText("کمک‌کننده‌ها");
+
+        btnA.setText("الف: زهره");
+        btnB.setText("ب: مریخ");
+        btnC.setText("ج: مشتری");
+        btnD.setText("د: زحل");
+
+        root.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+    }
+
+    private void switchToEnglish() {
+        questionLabel.setText("Which planet is known as the 'Red Planet'?");
+        earnTitle.setText("EARNINGS:");
+        timeLabel.setText("24 SEC");
+        ladderHeader.setText("Question Value");
+        lifelineHeader.setText("LIFELINES");
+
+        btnA.setText("A: Venus");
+        btnB.setText("B: Mars");
+        btnC.setText("C: Jupiter");
+        btnD.setText("D: Saturn");
+
+        root.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+    }
+
+    private void applyTheme(String themeClass) {
+        root.getStyleClass().removeAll("theme-deuteranopia", "theme-tritanopia");
+        if (!themeClass.equals("default")) {
+            root.getStyleClass().add(themeClass);
+        }
+    }
+
+    private void applyLookAndFeel(String styleClass) {
+        root.getStyleClass().removeAll("modern-style", "classic-style");
+        if (!styleClass.equals("default")) {
+            root.getStyleClass().add(styleClass);
+        }
+    }
+
+    // ==============================================================================================
+    // REGION BUILDERS
     // ==============================================================================================
 
     private VBox createMoneyLadder() {
-        VBox ladder = new VBox(5);
+        VBox ladder = new VBox(2);
         ladder.setAlignment(Pos.CENTER_LEFT);
-        ladder.setPadding(new Insets(15));
-        ladder.getStyleClass().add("ladder-container"); 
+        ladder.getStyleClass().add("ladder-container");
 
-        Label header = new Label("Question Value");
-        header.setTextFill(Color.WHITE);
-        header.setFont(Font.font("Arial", FontWeight.BOLD, 18));
-        ladder.getChildren().add(header);
+        ladderHeader = new Label("Question Value");
+        ladderHeader.setTextFill(Color.WHITE);
+        ladderHeader.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        ladder.getChildren().add(ladderHeader);
 
         String[] values = {"$1,000,000", "$500,000", "$300,000", "$200,000", "$10,000", "$5,000", "$2,000", "$1,000", "$500", "$100"};
-        
         for (String val : values) {
             Label lbl = new Label(val);
-            lbl.setPrefWidth(240);
-            lbl.setFont(Font.font("Arial", 16));
+            lbl.setPrefWidth(180);
             lbl.setAlignment(Pos.CENTER);
-            lbl.getStyleClass().add("ladder-cell"); 
+            lbl.getStyleClass().add("ladder-cell");
             if (val.equals("$2,000")) lbl.setId("current-level");
             ladder.getChildren().add(lbl);
         }
@@ -183,98 +161,139 @@ public class GameStage extends Application {
     }
 
     private VBox createTopRightDashboard() {
-        VBox dashboard = new VBox(15);
+        VBox dashboard = new VBox(10);
         dashboard.setAlignment(Pos.TOP_RIGHT);
 
         VBox earningsBox = new VBox();
         earningsBox.setAlignment(Pos.CENTER);
         earningsBox.getStyleClass().add("dashboard-box");
-        Label earnTitle = new Label("EARNINGS:");
+
+        earnTitle = new Label("EARNINGS:");
         earnTitle.setTextFill(Color.WHITE);
-        earnTitle.setFont(Font.font("Arial", 16));
-        Label earnValue = new Label("$1,000");
-        earnValue.setStyle("-fx-font-size: 48px; -fx-text-fill: gold; -fx-font-weight: bold;");
+        earnValue = new Label("$1,000");
+        earnValue.setStyle("-fx-font-size: 36px; -fx-text-fill: gold; -fx-font-weight: bold;");
         earningsBox.getChildren().addAll(earnTitle, earnValue);
 
         HBox timerBox = new HBox();
         timerBox.setAlignment(Pos.CENTER_RIGHT);
         timerBox.getStyleClass().add("timer-box");
-        Label timeLabel = new Label("24 SEC");
-        timeLabel.setStyle("-fx-font-size: 32px; -fx-text-fill: #ffcc00; -fx-font-weight: bold;");
+        timeLabel = new Label("24 SEC");
+        timeLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: #ffcc00; -fx-font-weight: bold;");
         timerBox.getChildren().add(timeLabel);
 
         dashboard.getChildren().addAll(earningsBox, timerBox);
         return dashboard;
     }
 
+    private BorderPane createBottomRegion() {
+        BorderPane bottomLayout = new BorderPane();
+        bottomLayout.setPadding(new Insets(0, 20, 20, 20));
+
+        bottomLayout.setLeft(createLifelinePanel());
+        bottomLayout.setCenter(new StackPane(createGameBoard()));
+
+        StackPane menuButton = createMenuDiamond();
+        BorderPane.setAlignment(menuButton, Pos.BOTTOM_RIGHT);
+        bottomLayout.setRight(menuButton);
+
+        return bottomLayout;
+    }
+
     private VBox createLifelinePanel() {
-        VBox box = new VBox(10);
+        VBox box = new VBox(5);
         box.setAlignment(Pos.BOTTOM_CENTER);
         box.getStyleClass().add("lifeline-panel");
-        
-        Label header = new Label("LIFELINES");
-        header.setTextFill(Color.WHITE);
-        header.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        
-        HBox icons = new HBox(15);
+
+        lifelineHeader = new Label("LIFELINES");
+        lifelineHeader.setTextFill(Color.WHITE);
+        lifelineHeader.setFont(Font.font("Arial", FontWeight.BOLD, 10));
+
+        HBox icons = new HBox(8);
         icons.setAlignment(Pos.CENTER);
-        
         Button l1 = new Button("50:50");
         Button l2 = new Button("📞");
         Button l3 = new Button("👥");
-        
-        l1.setPrefSize(70, 70); 
-        l2.setPrefSize(70, 70);
-        l3.setPrefSize(70, 70);
-        
         l1.getStyleClass().add("lifeline-btn");
         l2.getStyleClass().add("lifeline-btn");
         l3.getStyleClass().add("lifeline-btn");
-        
+
         icons.getChildren().addAll(l1, l2, l3);
-        box.getChildren().addAll(header, icons);
+        box.getChildren().addAll(lifelineHeader, icons);
         return box;
     }
 
     private VBox createGameBoard() {
-        VBox board = new VBox(20);
+        VBox board = new VBox(10);
         board.setAlignment(Pos.BOTTOM_CENTER);
-        
-        Label question = new Label("Which planet is known as the 'Red Planet'?");
-        question.getStyleClass().add("question-box");
-        question.setWrapText(true);
-        question.setPrefWidth(800);
-        question.setStyle("-fx-font-size: 28px; -fx-text-fill: white; -fx-font-weight: bold;");
-        question.setAlignment(Pos.CENTER);
+
+        questionLabel = new Label("Which planet is known as the 'Red Planet'?");
+        questionLabel.getStyleClass().add("question-box");
+        questionLabel.setWrapText(true);
+        questionLabel.setAlignment(Pos.CENTER);
 
         GridPane answers = new GridPane();
-        answers.setHgap(30);
-        answers.setVgap(20);
+        answers.setHgap(15);
+        answers.setVgap(10);
         answers.setAlignment(Pos.CENTER);
-        
-        answers.add(createAnswerBtn("A: Venus"), 0, 0);
-        answers.add(createAnswerBtn("B: Mars"), 1, 0);
-        answers.add(createAnswerBtn("C: Jupiter"), 0, 1);
-        answers.add(createAnswerBtn("D: Saturn"), 1, 1);
 
-        board.getChildren().addAll(question, answers);
+        btnA = createAnswerBtn("A: Venus");
+        btnB = createAnswerBtn("B: Mars");
+        btnC = createAnswerBtn("C: Jupiter");
+        btnD = createAnswerBtn("D: Saturn");
+
+        answers.add(btnA, 0, 0);
+        answers.add(btnB, 1, 0);
+        answers.add(btnC, 0, 1);
+        answers.add(btnD, 1, 1);
+
+        board.getChildren().addAll(questionLabel, answers);
         return board;
     }
 
     private StackPane createMenuDiamond() {
         StackPane diamondContainer = new StackPane();
         diamondContainer.setAlignment(Pos.CENTER);
+
         Button menuBtn = new Button();
-        menuBtn.getStyleClass().add("menu-diamond"); 
-        
-        menuBtn.setScaleX(1.5);
-        menuBtn.setScaleY(1.5);
+        menuBtn.getStyleClass().add("menu-diamond");
 
-        Label icon = new Label("☰"); 
+        ContextMenu mainMenu = new ContextMenu();
+
+        // 1. Language
+        Menu langMenu = new Menu("Language / زبان");
+        MenuItem engItem = new MenuItem("English");
+        MenuItem farItem = new MenuItem("فارسی");
+        engItem.setOnAction(e -> switchToEnglish());
+        farItem.setOnAction(e -> switchToFarsi());
+        langMenu.getItems().addAll(engItem, farItem);
+
+        // 2. Accessibility (Colors)
+        Menu colorMenu = new Menu("Colors");
+        MenuItem defColor = new MenuItem("Default");
+        MenuItem deutColor = new MenuItem("Deuteranopia");
+        MenuItem tritColor = new MenuItem("Tritanopia");
+        defColor.setOnAction(e -> applyTheme("default"));
+        deutColor.setOnAction(e -> applyTheme("theme-deuteranopia"));
+        tritColor.setOnAction(e -> applyTheme("theme-tritanopia"));
+        colorMenu.getItems().addAll(defColor, deutColor, tritColor);
+
+        // 3. Look and Feel
+        Menu lnfMenu = new Menu("Look and Feel");
+        MenuItem modernItem = new MenuItem("Quantum Modern");
+        MenuItem classicItem = new MenuItem("Classic TV Show");
+        modernItem.setOnAction(e -> applyLookAndFeel("modern-style"));
+        classicItem.setOnAction(e -> applyLookAndFeel("classic-style"));
+        lnfMenu.getItems().addAll(modernItem, classicItem);
+
+        mainMenu.getItems().addAll(langMenu, colorMenu, lnfMenu);
+
+        // Position menu above the button
+        menuBtn.setOnAction(e -> mainMenu.show(menuBtn, Side.TOP, 0, -60));
+
+        Label icon = new Label("☰");
         icon.setStyle("-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;");
-        icon.setMouseTransparent(true); 
+        icon.setMouseTransparent(true);
 
-        menuBtn.setOnAction(e -> System.out.println("Open In-Game Menu / Settings"));
         diamondContainer.getChildren().addAll(menuBtn, icon);
         return diamondContainer;
     }
@@ -282,9 +301,7 @@ public class GameStage extends Application {
     private Button createAnswerBtn(String text) {
         Button btn = new Button(text);
         btn.getStyleClass().add("answer-btn");
-        btn.setPrefWidth(550);
-        btn.setPrefHeight(60);
-        btn.setStyle("-fx-font-size: 20px;");
+        btn.setPrefWidth(400);
         return btn;
     }
 
