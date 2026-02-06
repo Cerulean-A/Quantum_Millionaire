@@ -12,7 +12,7 @@
     -fx-min-width: 200px;
     -fx-pref-width: 200px;
     -fx-max-width: 200px;
-	-fx-translate-x: 20px;
+
 }
 
 .ladder-cell {
@@ -165,4 +165,251 @@
 .theme-tritanopia #current-level {
     -fx-background-color: #ff4081;
     -fx-text-fill: white;
+}
+
+/* --- ACCESSIBILITY FOR MODE TOGGLE --- */
+.theme-deuteranopia .toggle-container {
+    -fx-border-color: #ffdd00;
+}
+.theme-deuteranopia .toggle-left:selected,
+.theme-deuteranopia .toggle-right:selected {
+    -fx-background-color: #ffdd00;
+    -fx-text-fill: black;
+}
+
+.theme-tritanopia .toggle-container {
+    -fx-border-color: #ff4081;
+}
+.theme-tritanopia .toggle-left:selected,
+.theme-tritanopia .toggle-right:selected {
+    -fx-background-color: #ff4081;
+    -fx-text-fill: white;
+}
+
+/* --- ACCESSIBILITY FOR DESIGN MODE BUTTON --- */
+.theme-deuteranopia .add-question-btn {
+    -fx-border-color: #ffdd00;
+    -fx-text-fill: #ffdd00;
+}
+.theme-deuteranopia .add-question-btn:hover {
+    -fx-background-color: rgba(255, 221, 0, 0.2);
+}
+
+.theme-tritanopia .add-question-btn {
+    -fx-border-color: #ff4081;
+    -fx-text-fill: #ff4081;
+}
+.theme-tritanopia .add-question-btn:hover {
+    -fx-background-color: rgba(255, 64, 129, 0.2);
+}
+
+/* --- MODE TOGGLE BUTTONS --- */
+
+.toggle-left, .toggle-right {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    /* Format is: Top Right Bottom Left */
+    -fx-padding: 4 12 4 12;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    /* ADDED: Smaller font size also helps shrink the box */
+    -fx-font-size: 11px;
+}
+
+.toggle-left { -fx-background-radius: 20 0 0 20; }
+.toggle-right { -fx-background-radius: 0 20 20 0; }
+
+.toggle-left:selected, .toggle-right:selected {
+    -fx-background-color: #d4af37;
+    -fx-text-fill: black;
+}
+
+/* --- DESIGN MODE STYLES --- */
+.add-question-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+    -fx-bora/* --- DEFAULT ELEMENTS --- */
+    .ladder-container {
+        -fx-background-color: rgba(0,0,0,0.6);
+        -fx-padding: 20;
+        -fx-border-color: #d4af37;
+        -fx-border-width: 2;
+        -fx-background-radius: 10;
+        -fx-min-width: 200px;
+    }
+
+    .ladder-cell {
+        -fx-text-fill: white;
+        -fx-font-weight: bold;
+        -fx-padding: 3 10 3 10;
+    }
+
+    #current-level {
+        -fx-background-color: #e67e22;
+        -fx-text-fill: black;
+        -fx-background-radius: 5;
+    }
+
+    .dashboard-box {
+        -fx-background-color: linear-gradient(to bottom, #000044, #000022);
+        -fx-border-color: #d4af37;
+        -fx-border-width: 2;
+        -fx-background-radius: 15;
+        -fx-padding: 10 30 10 30;
+    }
+
+    .timer-box {
+        -fx-background-color: rgba(0,0,0,0.6);
+        -fx-border-color: #d4af37;
+        -fx-border-width: 0 0 2 0;
+        -fx-padding: 5 20 5 20;
+        -fx-background-radius: 20;
+    }
+
+    .lifeline-panel {
+        -fx-background-color: linear-gradient(#2b1055, #110524);
+        -fx-border-color: #d4af37;
+        -fx-border-width: 2;
+        -fx-background-radius: 30;
+        -fx-padding: 10 20 10 20;
+    }
+
+    .lifeline-btn {
+        -fx-background-radius: 50;
+        -fx-min-width: 50px;
+        -fx-min-height: 50px;
+        -fx-background-color: #00008B;
+        -fx-text-fill: white;
+        -fx-border-color: #a0a0a0;
+    }
+
+    .question-box {
+        -fx-background-color: linear-gradient(to right, #2b1055, #4b0082, #2b1055);
+        -fx-border-color: #d4af37;
+        -fx-border-width: 3;
+        -fx-background-radius: 15;
+        -fx-padding: 20;
+        -fx-text-fill: white;
+        -fx-font-size: 22px;
+        -fx-font-weight: bold;
+    }
+
+    .answer-btn {
+        -fx-background-color: linear-gradient(#2b1055, #110524);
+        -fx-border-color: #d4af37;
+        -fx-border-width: 2;
+        -fx-background-radius: 30;
+        -fx-text-fill: white;
+        -fx-font-size: 18px;
+        -fx-cursor: hand;
+    }
+
+    .answer-btn:hover {
+        -fx-background-color: #e67e22;
+        -fx-text-fill: black;
+    }
+
+    /* --- MENU DIAMOND --- */
+    .menu-diamond {
+        -fx-shape: "M 50 0 L 100 50 L 50 100 L 0 50 Z";
+        -fx-min-width: 60px;
+        -fx-min-height: 60px;
+        -fx-background-color: #888888;
+        -fx-opacity: 0.4;
+        -fx-border-color: white;
+    }
+
+    .menu-diamond:hover {
+        -fx-opacity: 1.0;
+        -fx-background-color: #d4af37;
+    }
+
+    /* --- MODE TOGGLE BUTTONS (NO CONTAINER) --- */
+    .toggle-left, .toggle-right {
+        -fx-background-color: rgba(0,0,0,0.5);
+        -fx-text-fill: white;
+        -fx-padding: 4 12 4 12;
+        -fx-font-size: 11px;
+        -fx-font-weight: bold;
+        -fx-border-color: #d4af37;
+        -fx-cursor: hand;
+    }
+    .toggle-left { -fx-background-radius: 10 0 0 10; -fx-border-radius: 10 0 0 10; }
+    .toggle-right { -fx-background-radius: 0 10 10 0; -fx-border-radius: 0 10 10 0; -fx-translate-x: -1; }
+
+    .toggle-left:selected, .toggle-right:selected {
+        -fx-background-color: #d4af37;
+        -fx-text-fill: black;
+    }
+
+    /* --- ACCESSIBILITY COLORS --- */
+
+    /* DEUTERANOPIA */
+    .theme-deuteranopia .question-box,
+    .theme-deuteranopia .answer-btn,
+    .theme-deuteranopia .lifeline-panel,
+    .theme-deuteranopia .ladder-container,
+    .theme-deuteranopia .toggle-left,
+    .theme-deuteranopia .toggle-right {
+        -fx-background-color: #005ab5;
+        -fx-border-color: #ffdd00 !important;
+    }
+    .theme-deuteranopia .toggle-left:selected,
+    .theme-deuteranopia .toggle-right:selected,
+    .theme-deuteranopia #current-level {
+        -fx-background-color: #ffdd00;
+        -fx-text-fill: black;
+    }
+
+    /* TRITANOPIA */
+    .theme-tritanopia .question-box,
+    .theme-tritanopia .answer-btn,
+    .theme-tritanopia .lifeline-panel,
+    .theme-tritanopia .ladder-container,
+    .theme-tritanopia .toggle-left,
+    .theme-tritanopia .toggle-right {
+        -fx-background-color: #004d40;
+        -fx-border-color: #ff4081 !important;
+    }
+    .theme-tritanopia .toggle-left:selected,
+    .theme-tritanopia .toggle-right:selected,
+    .theme-tritanopia #current-level {
+        -fx-background-color: #ff4081;
+        -fx-text-fill: white;
+    }
+
+    /* --- DESIGN MODE STYLES --- */
+    .add-question-btn {
+        -fx-background-color: transparent;
+        -fx-border-color: white;
+        -fx-border-style: dashed;
+        -fx-border-width: 2;
+        -fx-text-fill: white;
+        -fx-font-size: 24px;
+        -fx-padding: 40 80 40 80;
+        -fx-background-radius: 10;
+    }
+    .theme-deuteranopia .add-question-btn { -fx-border-color: #ffdd00; -fx-text-fill: #ffdd00; }
+    .theme-tritanopia .add-question-btn { -fx-border-color: #ff4081; -fx-text-fill: #ff4081; }
+
+    /* --- LOOK AND FEEL --- */
+    .modern-style .question-box, .modern-style .answer-btn, .modern-style .ladder-container {
+        -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: "Courier New";
+    }
+    .classic-style .question-box, .classic-style .answer-btn {
+        -fx-background-radius: 45; -fx-border-radius: 45; -fx-font-family: "Serif";
+    }der-style: dashed;
+    -fx-border-width: 2;
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-padding: 40 80 40 80;
+    -fx-cursor: hand;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+.add-question-btn:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-border-color: #d4af37;
+    -fx-text-fill: #d4af37;
 }
