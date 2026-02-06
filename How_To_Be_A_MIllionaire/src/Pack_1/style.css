@@ -225,10 +225,14 @@
 }
 
 /* --- DESIGN MODE STYLES --- */
+
 .add-question-btn {
     -fx-background-color: transparent;
     -fx-border-color: white;
-    -fx-bora/* --- DEFAULT ELEMENTS --- */
+	-fx-border-radius: 10; /* Or whatever radius you prefer */
+	}
+	
+	/* --- DEFAULT ELEMENTS --- */
     .ladder-container {
         -fx-background-color: rgba(0,0,0,0.6);
         -fx-padding: 20;

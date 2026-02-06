@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -13,6 +14,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.transform.Scale;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -20,120 +23,205 @@ import javafx.stage.Stage;
  * This class handles the initialization of the game environment, including the transitions
  * between Play Mode and Design Mode, localization for English and Farsi, and accessibility
  * theme management.
+ * * <p>INTEGRATION NOTE: This class now utilizes an Atomic Design Grid (1920x1080 reference)
+ * allowing for seamless resolution scaling (720p, 1080p, 4K) while maintaining all 
+ * original game logic and localization features.</p>
  * * <p>Developed for the course instructed by Professor Paulo.</p>
- * * @author Paria Abdzadeh
+ * @author Paria Abdzadeh
  * @author Taylor Houstoun
- * @version 1.2
+ * @version 2.0 (Merged Integrated)
  */
 public class GameStage extends Application {
 
-    /** Default window width for the application. */
-    private static final double WINDOW_WIDTH = 1280;
-    /** Default window height for the application. */
-    private static final double WINDOW_HEIGHT = 720;
+    // =============================================================================================
+    // 1. THE "ATOMIC" DESIGN GRID (From Doc 2)
+    // =============================================================================================
+    // We will place all buttons/text based on this 1920x1080 "Virtual Paper".
+    private static final double DESIGN_WIDTH = 1920; 
+    private static final double DESIGN_HEIGHT = 1080;
 
-    // --- UI FIELDS ---
+    // =============================================================================================
+    // 2. USER RESOLUTION OPTIONS
+    // =============================================================================================
+    // Option A: 720p (Windowed, small)
+    private static final double RES_720P_WIDTH = 1280;
+    private static final double RES_720P_HEIGHT = 720;
+
+    // Option B: 1080p (Standard Full HD)
+    private static final double RES_1080P_WIDTH = 1920; 
+    private static final double RES_1080P_HEIGHT = 1080;
+    
+    // Option C: 4K (Ultra HD)
+    private static final double RES_4K_WIDTH = 3840; 
+    private static final double RES_4K_HEIGHT = 2160;
+
+    // --- DEVELOPER SWITCH ---
+    // Set to: 1=720p, 2=1080p, 3=4K
+    private static final int SELECTED_RESOLUTION_OPTION = 2; 
+
+    // =============================================================================================
+    // 3. UI FIELDS (From Doc 1 - Required for Logic)
+    // =============================================================================================
     private Label questionLabel, earnTitle, earnValue, timeLabel, ladderHeader, lifelineHeader;
     private Button btnA, btnB, btnC, btnD;
-    private StackPane root;
-    private BorderPane mainLayout;
-
-    // Mode-specific UI containers
+    private StackPane root; // Main container for CSS styling
+    
+    // Mode-specific UI containers (kept as fields to toggle visibility)
     private VBox moneyLadder;
     private VBox playModeContent;
     private VBox designModeContent;
     private VBox lifelinePanel;
     private VBox topRightDashboard;
+    private HBox modeToggle;
 
     /**
      * Initializes and displays the primary stage of the application.
      * Sets up the background image, layout managers, and initial view state.
-     * * @param primaryStage The primary stage for this application, onto which
-     * the application scene is set.
+     * @param primaryStage The primary stage for this application.
      */
     @Override
     public void start(Stage primaryStage) {
-        root = new StackPane();
+        
+        // --- STEP 1: DETERMINE TARGET WINDOW SIZE (Resolution Logic) ---
+        double targetWidth, targetHeight;
 
-        // 1. Background Setup
-        ImageView backgroundView = new ImageView();
-        try {
-            backgroundView.setImage(new Image("studio_bg.jpg"));
-            backgroundView.fitWidthProperty().bind(primaryStage.widthProperty());
-            backgroundView.fitHeightProperty().bind(primaryStage.heightProperty());
-        } catch (Exception e) {
-            // Fallback gradient if image is missing
-            root.setStyle("-fx-background-color: linear-gradient(to bottom, #000000, #1a0b2e);");
+        switch (SELECTED_RESOLUTION_OPTION) {
+            case 1:  targetWidth = RES_720P_WIDTH; targetHeight = RES_720P_HEIGHT; break;
+            case 3:  targetWidth = RES_4K_WIDTH;   targetHeight = RES_4K_HEIGHT;   break;
+            default: targetWidth = RES_1080P_WIDTH; targetHeight = RES_1080P_HEIGHT;
         }
 
-        // 2. Main Layout Initialization
-        mainLayout = new BorderPane();
-        mainLayout.setPadding(new Insets(20));
+        // --- STEP 2: SAFETY CLAMP (The "Fit to Screen" Logic) ---
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        
+        // Check if target is wider than the physical screen
+        if (targetWidth > screenBounds.getWidth() || targetHeight > screenBounds.getHeight()) {
+            double widthRatio = screenBounds.getWidth() / targetWidth;
+            double heightRatio = screenBounds.getHeight() / targetHeight;
+            double safeScale = Math.min(widthRatio, heightRatio);
+            targetWidth = targetWidth * safeScale;
+            targetHeight = targetHeight * safeScale;
+        }
 
+        // --- STEP 3: SETUP ROOT & BACKGROUND ---
+        root = new StackPane();
+        root.setStyle("-fx-background-color: black;"); 
+
+        ImageView backgroundView = new ImageView();
+        try {
+            Image bgImage = new Image("studio_bg.jpg"); 
+            backgroundView.setImage(bgImage);
+            backgroundView.setPreserveRatio(true);
+            backgroundView.setFitWidth(targetWidth);
+            backgroundView.setFitHeight(targetHeight);
+        } catch (Exception e) {
+            root.setStyle("-fx-background-color: linear-gradient(to bottom, #000000, #1a0b2e);"); 
+        }
+
+        // --- STEP 4: THE UI LAYER (The Scalable Canvas) ---
+        // This Pane is ALWAYS 1920x1080 internally.
+        Pane uiLayer = new Pane();
+        uiLayer.setPrefSize(DESIGN_WIDTH, DESIGN_HEIGHT);
+        uiLayer.setMaxSize(DESIGN_WIDTH, DESIGN_HEIGHT);
+
+        // --- STEP 5: CALCULATE SCALE FACTOR ---
+        double scaleFactor = targetWidth / DESIGN_WIDTH;
+        Scale scale = new Scale(scaleFactor, scaleFactor);
+        scale.setPivotX(0);
+        scale.setPivotY(0);
+        uiLayer.getTransforms().add(scale);
+
+        // --- STEP 6: PLACE ASSETS (Merging Logic from Doc 1 into Coordinates of Doc 2) ---
+        
+        // 6a. Money Ladder (Left)
         moneyLadder = createMoneyLadder();
-        playModeContent = createGameBoard();
-        designModeContent = createDesignBoard();
-        lifelinePanel = createLifelinePanel();
+        moneyLadder.relocate(30, 75); 
+        
+        // 6b. Dashboard (Top Right)
         topRightDashboard = createTopRightDashboard();
+        topRightDashboard.relocate(1500, 30);
 
-        // 3. Top Bar Construction (Toggle + Spacer + Dashboard)
-        HBox topBar = new HBox();
-        topBar.setAlignment(Pos.TOP_CENTER);
-        Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        topBar.getChildren().addAll(createModeToggle(), spacer, topRightDashboard);
-        mainLayout.setTop(topBar);
+        // 6c. Lifelines (Bottom Left)
+        lifelinePanel = createLifelinePanel(); 
+        lifelinePanel.relocate(30, 870);
 
-        // 4. Interaction Menu (Diamond Button)
+        // 6d. Game Board (Bottom Center)
+        playModeContent = createGameBoard();
+        playModeContent.relocate(560, 720); 
+
+        // 6e. Design Mode Content (Center Screen)
+        designModeContent = createDesignBoard();
+        designModeContent.relocate(DESIGN_WIDTH / 2 - 200, DESIGN_HEIGHT / 2 - 100); // Centered relative to 1920x1080
+
+        // 6f. Mode Toggle (Top Center)
+        modeToggle = createModeToggle();
+        modeToggle.relocate(810, 30); // Centered horizontally
+        
+        // 6g. Menu Diamond (Bottom Right)
         StackPane menuButton = createMenuDiamond();
-        mainLayout.setRight(menuButton);
-        BorderPane.setAlignment(menuButton, Pos.BOTTOM_RIGHT);
+        menuButton.relocate(1770, 930);
 
-        // 5. Default View state
+        // Add all potential children to the layer
+        uiLayer.getChildren().addAll(moneyLadder, topRightDashboard, lifelinePanel, playModeContent, designModeContent, modeToggle, menuButton);
+
+        // --- FINALIZE ---
+        // Initialize Default View (Play Mode)
         updateViewMode(true);
 
-        root.getChildren().addAll(backgroundView, mainLayout);
-        Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+        root.getChildren().addAll(backgroundView, uiLayer);
+        Scene scene = new Scene(root, targetWidth, targetHeight);
 
         try {
             scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         } catch (Exception e) {
-            System.out.println("Warning: CSS file 'style.css' not found in Pack_1.");
+            System.out.println("Warning: CSS file 'style.css' not found.");
         }
 
-        primaryStage.setTitle("Quantum Millionaire - Team Ria");
+        primaryStage.setTitle("Quantum Millionaire - Team Ria [Res: " + (int)targetWidth + "x" + (int)targetHeight + "]");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     /**
      * Toggles the visibility of UI components based on the active mode.
-     * In Play Mode, the Money Ladder, Lifelines, and Dashboard are shown.
-     * In Design Mode, these are hidden to provide a clean editing workspace.
-     * * @param isPlayMode true to show gameplay elements, false for design workspace.
+     * Rewritten to use setVisible() for the Atomic Grid system instead of BorderPane.
+     * @param isPlayMode true to show gameplay elements, false for design workspace.
      */
     private void updateViewMode(boolean isPlayMode) {
         if (isPlayMode) {
-            mainLayout.setLeft(moneyLadder);
-            mainLayout.setCenter(playModeContent);
-            mainLayout.setBottom(lifelinePanel);
+            moneyLadder.setVisible(true);
+            playModeContent.setVisible(true);
+            lifelinePanel.setVisible(true);
             topRightDashboard.setVisible(true);
+            designModeContent.setVisible(false);
         } else {
-            mainLayout.setLeft(null);
-            mainLayout.setBottom(null);
-            mainLayout.setCenter(designModeContent);
+            moneyLadder.setVisible(false);
+            playModeContent.setVisible(false);
+            lifelinePanel.setVisible(false);
             topRightDashboard.setVisible(false);
+            designModeContent.setVisible(true);
         }
     }
 
+    // ==============================================================================================
+    // REGION BUILDERS (Merged Styles + Logic)
+    // ==============================================================================================
+
     /**
      * Creates the mode switching control using ToggleButtons.
-     * * @return HBox containing the Play/Design mode toggle controls.
+     * @return HBox containing the Play/Design mode toggle controls.
      */
     private HBox createModeToggle() {
         HBox toggleBox = new HBox(0);
+        toggleBox.setAlignment(Pos.CENTER);
+        
         ToggleButton playBtn = new ToggleButton("Play Mode");
         ToggleButton designBtn = new ToggleButton("Design Mode");
+        
+        // Increase font size for high-res grid
+        playBtn.setStyle("-fx-font-size: 18px;");
+        designBtn.setStyle("-fx-font-size: 18px;");
+        
         playBtn.getStyleClass().add("toggle-left");
         designBtn.getStyleClass().add("toggle-right");
 
@@ -151,118 +239,156 @@ public class GameStage extends Application {
 
     /**
      * Builds the workspace for the Design Mode.
-     * * @return VBox containing the "Add Question" button and editor instructions.
+     * @return VBox containing the "Add Question" button and editor instructions.
      */
     private VBox createDesignBoard() {
         VBox board = new VBox(20);
         board.setAlignment(Pos.CENTER);
+        
         Button addBtn = new Button("+ ADD NEW QUESTION");
         addBtn.getStyleClass().add("add-question-btn");
+        addBtn.setStyle("-fx-font-size: 24px; -fx-padding: 20 40;"); // Up-scaled styling
+        
         Label instr = new Label("Editor Mode Active");
-        instr.setStyle("-fx-text-fill: rgba(255,255,255,0.4);");
+        instr.setStyle("-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 20px;");
+        
         board.getChildren().addAll(addBtn, instr);
         return board;
     }
 
-    /**
-     * Constructs the vertical money ladder indicating question values.
-     * * @return VBox containing the prize value labels.
-     */
     private VBox createMoneyLadder() {
-        VBox ladder = new VBox(2);
+        VBox ladder = new VBox(5);
         ladder.setAlignment(Pos.CENTER_LEFT);
-        ladder.getStyleClass().add("ladder-container");
+        ladder.setPadding(new Insets(15));
+        ladder.getStyleClass().add("ladder-container"); 
+
         ladderHeader = new Label("Question Value");
         ladderHeader.setTextFill(Color.WHITE);
+        ladderHeader.setFont(Font.font("Arial", FontWeight.BOLD, 18));
         ladder.getChildren().add(ladderHeader);
-        String[] vals = {"$1,000,000", "$500,000", "$300,000", "$200,000", "$10,000", "$5,000", "$2,000", "$1,000", "$500", "$100"};
-        for (String v : vals) {
-            Label lbl = new Label(v);
-            lbl.setPrefWidth(180); lbl.setAlignment(Pos.CENTER);
-            lbl.getStyleClass().add("ladder-cell");
-            if (v.equals("$2,000")) lbl.setId("current-level");
+
+        String[] values = {"$1,000,000", "$500,000", "$300,000", "$200,000", "$10,000", "$5,000", "$2,000", "$1,000", "$500", "$100"};
+        
+        for (String val : values) {
+            Label lbl = new Label(val);
+            lbl.setPrefWidth(240);
+            lbl.setFont(Font.font("Arial", 16));
+            lbl.setAlignment(Pos.CENTER);
+            lbl.getStyleClass().add("ladder-cell"); 
+            if (val.equals("$2,000")) lbl.setId("current-level");
             ladder.getChildren().add(lbl);
         }
         return ladder;
     }
 
-    /**
-     * Creates the dashboard for user earnings and the countdown timer.
-     * * @return VBox containing the earnings and timer displays.
-     */
     private VBox createTopRightDashboard() {
-        VBox db = new VBox(10);
-        db.setAlignment(Pos.TOP_RIGHT);
-        VBox earnBox = new VBox();
-        earnBox.setAlignment(Pos.CENTER);
-        earnBox.getStyleClass().add("dashboard-box");
+        VBox dashboard = new VBox(15);
+        dashboard.setAlignment(Pos.TOP_RIGHT);
+
+        VBox earningsBox = new VBox();
+        earningsBox.setAlignment(Pos.CENTER);
+        earningsBox.getStyleClass().add("dashboard-box");
+        
         earnTitle = new Label("EARNINGS:");
         earnTitle.setTextFill(Color.WHITE);
+        earnTitle.setFont(Font.font("Arial", 16));
+        
         earnValue = new Label("$1,000");
-        earnValue.setStyle("-fx-font-size: 36px; -fx-text-fill: gold; -fx-font-weight: bold;");
-        earnBox.getChildren().addAll(earnTitle, earnValue);
+        earnValue.setStyle("-fx-font-size: 48px; -fx-text-fill: gold; -fx-font-weight: bold;");
+        earningsBox.getChildren().addAll(earnTitle, earnValue);
+
         HBox timerBox = new HBox();
         timerBox.setAlignment(Pos.CENTER_RIGHT);
         timerBox.getStyleClass().add("timer-box");
+        
         timeLabel = new Label("24 SEC");
-        timeLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: #ffcc00; -fx-font-weight: bold;");
+        timeLabel.setStyle("-fx-font-size: 32px; -fx-text-fill: #ffcc00; -fx-font-weight: bold;");
         timerBox.getChildren().add(timeLabel);
-        db.getChildren().addAll(earnBox, timerBox);
-        return db;
+
+        dashboard.getChildren().addAll(earningsBox, timerBox);
+        return dashboard;
     }
 
-    /**
-     * Constructs the lifeline selection panel.
-     * * @return VBox containing the lifeline action buttons.
-     */
     private VBox createLifelinePanel() {
-        VBox box = new VBox(5);
+        VBox box = new VBox(10);
         box.setAlignment(Pos.BOTTOM_CENTER);
         box.getStyleClass().add("lifeline-panel");
+        
         lifelineHeader = new Label("LIFELINES");
         lifelineHeader.setTextFill(Color.WHITE);
-        HBox icons = new HBox(8);
+        lifelineHeader.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        
+        HBox icons = new HBox(15);
         icons.setAlignment(Pos.CENTER);
+        
         String[] life = {"50:50", "📞", "👥"};
         for (String s : life) {
             Button b = new Button(s);
+            b.setPrefSize(70, 70); 
             b.getStyleClass().add("lifeline-btn");
             icons.getChildren().add(b);
         }
+        
         box.getChildren().addAll(lifelineHeader, icons);
         return box;
     }
 
-    /**
-     * Builds the main gameplay board including the question and answer choices.
-     * * @return VBox containing the question label and answer grid.
-     */
     private VBox createGameBoard() {
-        VBox board = new VBox(10);
+        VBox board = new VBox(20);
         board.setAlignment(Pos.BOTTOM_CENTER);
+        
         questionLabel = new Label("Which planet is known as the 'Red Planet'?");
         questionLabel.getStyleClass().add("question-box");
         questionLabel.setWrapText(true);
         questionLabel.setPrefWidth(800);
-        GridPane ans = new GridPane();
-        ans.setHgap(15); ans.setVgap(10); ans.setAlignment(Pos.CENTER);
-        btnA = createAnswerBtn("A: Venus"); btnB = createAnswerBtn("B: Mars");
-        btnC = createAnswerBtn("C: Jupiter"); btnD = createAnswerBtn("D: Saturn");
-        ans.add(btnA, 0, 0); ans.add(btnB, 1, 0); ans.add(btnC, 0, 1); ans.add(btnD, 1, 1);
-        board.getChildren().addAll(questionLabel, ans);
+        questionLabel.setStyle("-fx-font-size: 28px; -fx-text-fill: white; -fx-font-weight: bold;");
+        questionLabel.setAlignment(Pos.CENTER);
+
+        GridPane answers = new GridPane();
+        answers.setHgap(30);
+        answers.setVgap(20);
+        answers.setAlignment(Pos.CENTER);
+        
+        // Connect Class Fields (btnA, btnB) to the creation logic
+        btnA = createAnswerBtn("A: Venus"); 
+        btnB = createAnswerBtn("B: Mars");
+        btnC = createAnswerBtn("C: Jupiter"); 
+        btnD = createAnswerBtn("D: Saturn");
+
+        answers.add(btnA, 0, 0);
+        answers.add(btnB, 1, 0);
+        answers.add(btnC, 0, 1);
+        answers.add(btnD, 1, 1);
+
+        board.getChildren().addAll(questionLabel, answers);
         return board;
+    }
+
+    private Button createAnswerBtn(String text) {
+        Button btn = new Button(text);
+        btn.getStyleClass().add("answer-btn");
+        btn.setPrefWidth(550);
+        btn.setPrefHeight(60);
+        btn.setStyle("-fx-font-size: 20px;");
+        return btn;
     }
 
     /**
      * Creates the settings menu triggered by a diamond-shaped button.
-     * * @return StackPane containing the button and its icon.
+     * Merges Doc 1's ContextMenu logic with Doc 2's Diamond visual style.
      */
     private StackPane createMenuDiamond() {
-        StackPane container = new StackPane();
+        StackPane diamondContainer = new StackPane();
+        diamondContainer.setAlignment(Pos.CENTER);
+        
         Button menuBtn = new Button();
-        menuBtn.getStyleClass().add("menu-diamond");
-        ContextMenu menu = new ContextMenu();
+        menuBtn.getStyleClass().add("menu-diamond"); 
+        menuBtn.setScaleX(1.5);
+        menuBtn.setScaleY(1.5);
 
+        // --- CONTEXT MENU LOGIC FROM DOC 1 ---
+        ContextMenu menu = new ContextMenu();
+        
         Menu lM = new Menu("Language");
         MenuItem eI = new MenuItem("English"); MenuItem fI = new MenuItem("فارسی");
         eI.setOnAction(e -> switchToEnglish()); fI.setOnAction(e -> switchToFarsi());
@@ -280,23 +406,18 @@ public class GameStage extends Application {
 
         menu.getItems().addAll(lM, cM, lnf);
         menuBtn.setOnAction(e -> menu.show(menuBtn, Side.TOP, 0, -60));
-        Label icon = new Label("☰"); icon.setStyle("-fx-text-fill: white; -fx-font-size: 20px;");
-        icon.setMouseTransparent(true);
-        container.getChildren().addAll(menuBtn, icon);
-        return container;
+
+        Label icon = new Label("☰"); 
+        icon.setStyle("-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;");
+        icon.setMouseTransparent(true); 
+
+        diamondContainer.getChildren().addAll(menuBtn, icon);
+        return diamondContainer;
     }
 
-    /**
-     * Utility method for creating uniform answer buttons.
-     * * @param text The text to display on the button.
-     * @return A stylized Button for answer selection.
-     */
-    private Button createAnswerBtn(String text) {
-        Button b = new Button(text);
-        b.getStyleClass().add("answer-btn");
-        b.setPrefWidth(400);
-        return b;
-    }
+    // ==============================================================================================
+    // LOGIC & HELPER METHODS (From Doc 1)
+    // ==============================================================================================
 
     /**
      * Switches the UI text and orientation to Persian (Farsi).
@@ -316,27 +437,15 @@ public class GameStage extends Application {
         root.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
     }
 
-    /**
-     * Applies a color-blind friendly theme to the application root.
-     * * @param t The CSS class name of the theme to apply.
-     */
     private void applyTheme(String t) {
         root.getStyleClass().removeAll("theme-deuteranopia", "theme-tritanopia");
         if (!t.equals("default")) root.getStyleClass().add(t);
     }
 
-    /**
-     * Applies a specific visual style (e.g., Modern vs Classic) to the UI components.
-     * * @param s The CSS class name for the look-and-feel style.
-     */
     private void applyLookAndFeel(String s) {
         root.getStyleClass().removeAll("modern-style", "classic-style");
         if (!s.equals("default")) root.getStyleClass().add(s);
     }
 
-    /**
-     * Main entry point for the JavaFX application.
-     * * @param args Command line arguments.
-     */
     public static void main(String[] args) { launch(args); }
 }
