@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import Pack_1.Question;
+import qgame.Question;
 
 public class QuestionLoader {
 

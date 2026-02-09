@@ -3,7 +3,8 @@ package Database;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import Pack_1.Question;
+import qgame.Question;
+
 import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.List;

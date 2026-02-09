@@ -1,6 +1,5 @@
-package Pack_1;
+package qgame;
 
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
@@ -27,11 +26,21 @@ import javafx.stage.Stage;
  * allowing for seamless resolution scaling (720p, 1080p, 4K) while maintaining all 
  * original game logic and localization features.</p>
  * * <p>Developed for the course instructed by Professor Paulo.</p>
+ *
+ * <p><b>SCREEN-CLASS NOTE:</b> This class was originally a JavaFX Application subclass.
+ * It has been refactored into a "screen class" that <b>builds and owns a Scene</b> but
+ * does <b>not</b> extend Application and does <b>not</b> call launch() or show() directly.
+ * The Stage lifecycle is now controlled by an external entry point (e.g., MainApp or FrontPage),
+ * which constructs GameStage and retrieves its Scene via {@link #getScene()}.</p>
+ *
+ * <p>All original comments and logic have been preserved; only structural changes were made
+ * to support the screen-class architecture.</p>
+ *
  * @author Paria Abdzadeh
  * @author Taylor Houstoun
- * @version 2.0 (Merged Integrated)
+ * @version 2.0 (Merged Integrated, Screen-Class Refactor)
  */
-public class GameStage extends Application {
+public class GameStage {
 
     // =============================================================================================
     // 1. THE "ATOMIC" DESIGN GRID (From Doc 2)
@@ -74,14 +83,30 @@ public class GameStage extends Application {
     private VBox topRightDashboard;
     private HBox modeToggle;
 
+    // =============================================================================================
+    // 4. SCREEN-CLASS FIELDS
+    // =============================================================================================
+    // The Stage is now provided from outside; GameStage no longer owns the lifecycle.
+    private final Stage stage;
+    // The Scene built by this screen class and exposed via getScene().
+    private final Scene scene;
+
     /**
-     * Initializes and displays the primary stage of the application.
-     * Sets up the background image, layout managers, and initial view state.
-     * @param primaryStage The primary stage for this application.
+     * Initializes and configures the game UI for the provided Stage.
+     * <p>
+     * This constructor replaces the original {@code start(Stage primaryStage)} method
+     * from the Application subclass. All original initialization logic has been moved
+     * here with comments preserved. The Stage is not shown here; the caller is
+     * responsible for calling {@code stage.setScene(gameStage.getScene())} and
+     * {@code stage.show()}.
+     * </p>
+     *
+     * @param primaryStage The primary stage for this application screen, supplied by MainApp/FrontPage.
      */
-    @Override
-    public void start(Stage primaryStage) {
-        
+    public GameStage(Stage primaryStage) {
+        // store reference for potential future use (e.g., title changes)
+        this.stage = primaryStage;
+
         // --- STEP 1: DETERMINE TARGET WINDOW SIZE (Resolution Logic) ---
         double targetWidth, targetHeight;
 
@@ -109,12 +134,17 @@ public class GameStage extends Application {
 
         ImageView backgroundView = new ImageView();
         try {
-            Image bgImage = new Image("studio_bg.jpg"); 
+            // UPDATED: Load from classpath resources instead of a bare filename.
+            // The image is expected at: src/main/resources/assets/WWTB_A_Millionaire_Background.png
+            Image bgImage = new Image(
+                getClass().getResource("/assets/WWTB_A_Millionaire_Background.png").toExternalForm()
+            ); 
             backgroundView.setImage(bgImage);
             backgroundView.setPreserveRatio(true);
             backgroundView.setFitWidth(targetWidth);
             backgroundView.setFitHeight(targetHeight);
         } catch (Exception e) {
+            // Fallback gradient if the resource is missing or fails to load.
             root.setStyle("-fx-background-color: linear-gradient(to bottom, #000000, #1a0b2e);"); 
         }
 
@@ -162,24 +192,53 @@ public class GameStage extends Application {
         menuButton.relocate(1770, 930);
 
         // Add all potential children to the layer
-        uiLayer.getChildren().addAll(moneyLadder, topRightDashboard, lifelinePanel, playModeContent, designModeContent, modeToggle, menuButton);
+        uiLayer.getChildren().addAll(
+            moneyLadder,
+            topRightDashboard,
+            lifelinePanel,
+            playModeContent,
+            designModeContent,
+            modeToggle,
+            menuButton
+        );
 
         // --- FINALIZE ---
         // Initialize Default View (Play Mode)
         updateViewMode(true);
 
         root.getChildren().addAll(backgroundView, uiLayer);
-        Scene scene = new Scene(root, targetWidth, targetHeight);
+        Scene localScene = new Scene(root, targetWidth, targetHeight);
 
         try {
-            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            localScene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         } catch (Exception e) {
             System.out.println("Warning: CSS file 'style.css' not found.");
         }
 
-        primaryStage.setTitle("Quantum Millionaire - Team Ria [Res: " + (int)targetWidth + "x" + (int)targetHeight + "]");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        // SCREEN-CLASS NOTE:
+        // The Stage title and scene assignment are now the responsibility of the caller.
+        // Example usage from MainApp/FrontPage:
+        //   GameStage gameStage = new GameStage(primaryStage);
+        //   primaryStage.setTitle("Quantum Millionaire - Team Ria [Res: " + (int)targetWidth + "x" + (int)targetHeight + "]");
+        //   primaryStage.setScene(gameStage.getScene());
+        //   primaryStage.show();
+        //
+        // We only store the Scene here.
+        this.scene = localScene;
+    }
+
+    /**
+     * Returns the Scene built and managed by this GameStage screen class.
+     * <p>
+     * This replaces the original pattern where GameStage (as an Application subclass)
+     * directly called {@code primaryStage.setScene(scene)} and {@code primaryStage.show()}.
+     * The caller is now responsible for attaching this Scene to the Stage.
+     * </p>
+     *
+     * @return the Scene representing the Quantum Millionaire game UI.
+     */
+    public Scene getScene() {
+        return scene;
     }
 
     /**
@@ -254,6 +313,13 @@ public class GameStage extends Application {
         
         board.getChildren().addAll(addBtn, instr);
         return board;
+    }
+    
+    /**
+     * A function to be called to get to design mode from the Front Page.
+     */
+    public void showDesignMode() {
+        updateViewMode(false);
     }
 
     private VBox createMoneyLadder() {
@@ -447,5 +513,7 @@ public class GameStage extends Application {
         if (!s.equals("default")) root.getStyleClass().add(s);
     }
 
-    public static void main(String[] args) { launch(args); }
+    // NOTE: The original main(String[] args) and Application inheritance have been removed
+    // to support the screen-class architecture. Launching the JavaFX application is now
+    // the responsibility of a separate Application subclass (e.g., MainApp).
 }

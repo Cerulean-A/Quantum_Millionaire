@@ -1,4 +1,4 @@
-package Pack_1;
+package qgame;
 
 import java.util.List;
 

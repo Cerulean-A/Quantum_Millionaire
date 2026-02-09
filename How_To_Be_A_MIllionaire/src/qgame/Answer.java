@@ -1,4 +1,4 @@
-package Pack_1;
+package qgame;
 
 public class Answer {
     private String text;
