@@ -3,3 +3,9 @@ bin/
 .settings/
 .project
 .classpath
+/manifest.txt
+/Note To Paulo - A2.txt
+/QuantumMillionaire.jar
+/QuantumMillionaire.zip
+/run_millionaire.bat
+/run_millionaire_Jar.bat
