@@ -1,0 +1,29 @@
+<svg width="400" height="210" viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradHoverPearl2" x1="10%" y1="0%" x2="90%" y2="100%">
+       <stop offset="0%" style="stop-color:#00FFFF;stop-opacity:1" />  <stop offset="20%" style="stop-color:#FFFFE0;stop-opacity:1" /> <stop offset="45%" style="stop-color:#FFB6C1;stop-opacity:1" /> <stop offset="70%" style="stop-color:#E0FFFF;stop-opacity:1" /> <stop offset="100%" style="stop-color:#FFD700;stop-opacity:1" /> </linearGradient>
+    
+    <linearGradient id="gradBorderPearl2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FFFACD;stop-opacity:1" /> <stop offset="50%" style="stop-color:#FF69B4;stop-opacity:1" /> <stop offset="100%" style="stop-color:#FFFACD;stop-opacity:1" />
+    </linearGradient>
+    
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+
+  <g id="State_Hover">
+    <rect x="4" y="4" width="390" height="60" rx="10" ry="10" 
+          fill="url(#gradHoverPearl2)" stroke="url(#gradBorderPearl2)" stroke-width="2.5" filter="url(#shadow)" />
+    
+    <text x="35" y="33" dominant-baseline="central" font-family="Arial, sans-serif" font-weight="900" font-size="30" fill="#FFFFFF" text-anchor="middle" stroke="#000" stroke-width="0.8">
+      {{NUM}}
+    </text>
+
+    <path d="M 74 25 L 82 35 L 74 46 L 66 35 Z" fill="#FFFFFF" stroke="#000" stroke-width="0.5" />
+
+    <text x="230" y="33" dominant-baseline="central" font-family="Arial, sans-serif" font-weight="900" font-size="34" fill="#FFFFFF" text-anchor="middle" letter-spacing="1" stroke="#000" stroke-width="1">
+      {{TEXT}}
+    </text>
+  </g>
+</svg>

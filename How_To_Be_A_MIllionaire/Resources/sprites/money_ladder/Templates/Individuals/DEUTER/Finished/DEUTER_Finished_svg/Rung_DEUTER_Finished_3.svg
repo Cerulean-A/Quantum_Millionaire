@@ -1,0 +1,41 @@
+<svg width="398" height="68" viewBox="0 0 398 68" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradFinished" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"  stop-color="#002244"/>
+      <stop offset="20%" stop-color="#002D5A"/>
+      <stop offset="50%" stop-color="#003D7A"/>
+      <stop offset="80%" stop-color="#002D5A"/>
+      <stop offset="100%" stop-color="#002244"/>
+    </linearGradient>
+    
+    <linearGradient id="gradBorderDim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#887733;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#AA9944;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#887733;stop-opacity:1" />
+    </linearGradient>
+
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+
+<g id="State_Finished">
+  
+  <rect x="4" y="4" width="390" height="60" rx="10" ry="10"
+        fill="url(#gradFinished)" stroke="url(#gradBorderDim)"
+        stroke-width="2" filter="url(#shadow)" />
+
+    <text x="35" y="33" dominant-baseline="central" font-family="Arial, sans-serif" font-weight="900" font-size="30" fill="#BBBBBB" text-anchor="middle" stroke="#000" stroke-width="0.5">
+      3
+    </text>
+
+    <path d="M 74 25 L 82 35 L 74 46 L 66 35 Z" fill="#BBBBBB" />
+
+    <text x="230" y="33" dominant-baseline="central" font-family="Arial, sans-serif" font-weight="900" font-size="34" fill="#BBBBBB" text-anchor="middle" letter-spacing="1" stroke="#000" stroke-width="1">
+      $300
+    </text>
+
+  <rect x="4" y="4" width="390" height="60" rx="10" ry="10"
+        fill="black" opacity="0.35"/>
+  </g>
+</svg>

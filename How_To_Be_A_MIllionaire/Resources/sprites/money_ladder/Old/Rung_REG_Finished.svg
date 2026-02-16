@@ -1,0 +1,60 @@
+<svg width="400" height="210" viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradResting" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#050510;stop-opacity:1" />   <stop offset="15%" style="stop-color:#101030;stop-opacity:1" />  <stop offset="50%" style="stop-color:#2a2a60;stop-opacity:1" />  <stop offset="85%" style="stop-color:#101030;stop-opacity:1" />  <stop offset="100%" style="stop-color:#050510;stop-opacity:1" /> </linearGradient>
+    
+    <linearGradient id="gradActive" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#cc5500;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#ffaa00;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#cc5500;stop-opacity:1" />
+    </linearGradient>
+
+	<linearGradient id="gradFinished" x1="0%" y1="0%" x2="0%" y2="100%">
+	  <stop offset="0%"   stop-color="#050510"/>
+	  <stop offset="20%"  stop-color="#0f0f25"/>
+	  <stop offset="50%"  stop-color="#1a1a35"/>
+	  <stop offset="80%"  stop-color="#0f0f25"/>
+	  <stop offset="100%" stop-color="#050510"/>
+	</linearGradient>
+
+    <linearGradient id="gradBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#aa7700;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#ffd700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#aa7700;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="gradBorderDim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#443300;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#665522;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#443300;stop-opacity:1" />
+    </linearGradient>
+
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+
+
+<g id="State_Finished">
+  
+  <!-- Background -->
+  <rect x="0" y="0" width="390" height="60" rx="10" ry="10"
+        fill="url(#gradFinished)" stroke="url(#gradBorderDim)"
+        stroke-width="2" filter="url(#shadow)" />
+
+    <text x="35" y="32" dominant-baseline="central" font-family="Arial, sans-serif" font-weight="900" font-size="30" fill="#cc8800" text-anchor="middle" stroke="#000" stroke-width="0.5">
+      5
+    </text>
+
+    <path d="M 60 22 L 68 32 L 60 42 L 52 32 Z" fill="#FFFFFF" />
+
+    <text x="230" y="32" dominant-baseline="central" font-family="Arial, sans-serif" font-weight="900" font-size="34" fill="#FFFFFF" text-anchor="middle" letter-spacing="1" stroke="#000" stroke-width="1">
+      $1,000
+    </text>
+
+  <!-- Dimming overlay (THIS is what you add) -->
+  <rect x="0" y="0" width="390" height="60" rx="10" ry="10"
+        fill="black" opacity="0.35"/>
+  </g>
+
+</svg>

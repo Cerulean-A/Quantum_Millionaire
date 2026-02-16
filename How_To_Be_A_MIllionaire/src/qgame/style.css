@@ -4,21 +4,32 @@
 
 /* --- DEFAULT ELEMENTS --- */
 .ladder-container {
-    -fx-background-color: rgba(0,0,0,0.6);
-    -fx-padding: 20;
-    -fx-border-color: #d4af37;
-    -fx-border-width: 2;
-    -fx-background-radius: 10;
-    -fx-min-width: 200px;
-    -fx-pref-width: 200px;
-    -fx-max-width: 200px;
 
+  -fx-background-color:
+  linear-gradient(from 0% 0% to 0% 100%,                 /* bottom: bright gold bands */
+    rgba(255,250,230,0.3) 0%,
+    rgba(255,245,200,0.3) 12%,
+    rgba(255,225,120,0.3) 40%,
+    rgba(255,205,60,0.3) 70%,
+    rgba(255,185,20,0.3) 100%),
+	 /* faint gold wash */
+    linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3));   /* topmost: dark translucent overlay */
+
+
+  -fx-background-radius: 12;        /* rounded corners for background */
+  -fx-background-insets: 0;         /* ensure background fills to the rounded edge */
+  -fx-padding: 0;                   /* control padding in code instead of CSS if you prefer */
+  -fx-padding: 3 3 3 1;
+  /* -fx-border-radius: 12;            /* match border radius to background */
+  /* -fx-border-color: #947B27;        /* darker gold suggested earlier */
+  /* -fx-border-width: 2; */
 }
+
 
 .ladder-cell {
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-padding: 3 10 3 10;
+    /* -fx-padding: 3 10 3 10; */
 }
 
 #current-level {
@@ -233,20 +244,20 @@
 	}
 	
 	/* --- DEFAULT ELEMENTS --- */
-    .ladder-container {
+/*    .ladder-container {
         -fx-background-color: rgba(0,0,0,0.6);
-        -fx-padding: 20;
-        -fx-border-color: #d4af37;
-        -fx-border-width: 2;
-        -fx-background-radius: 10;
-        -fx-min-width: 200px;
+        -fx-padding: 0;
+        -fx-border-color: #947B27;
+        -fx-border-width: 0;
+        -fx-background-radius: 0;
+        
     }
 
     .ladder-cell {
         -fx-text-fill: white;
         -fx-font-weight: bold;
-        -fx-padding: 3 10 3 10;
-    }
+        -fx-padding: 0 0 0 0;
+    } */
 
     #current-level {
         -fx-background-color: #e67e22;

@@ -1,5 +1,7 @@
 package qgame;
 
+import java.nio.file.Path;
+
 import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
@@ -74,6 +76,8 @@ public class GameStage {
     private Label questionLabel, earnTitle, earnValue, timeLabel, ladderHeader, lifelineHeader;
     private Button btnA, btnB, btnC, btnD;
     private StackPane root; // Main container for CSS styling
+    private GameController controller;
+    private String activeTheme = "default";
     
     // Mode-specific UI containers (kept as fields to toggle visibility)
     private VBox moneyLadder;
@@ -163,9 +167,31 @@ public class GameStage {
 
         // --- STEP 6: PLACE ASSETS (Merging Logic from Doc 1 into Coordinates of Doc 2) ---
         
-        // 6a. Money Ladder (Left)
-        moneyLadder = createMoneyLadder();
-        moneyLadder.relocate(30, 75); 
+        // 6a. Money Ladder (Left) — created by controller
+        // --- GameStage: instantiate and wire controller 
+
+        // create the Pane that will hold the ladder (design-size container)
+        moneyLadder = new VBox();               // <-- create the container first
+        moneyLadder.setAlignment(Pos.CENTER_LEFT);
+        moneyLadder.setPadding(new Insets(15));
+        moneyLadder.getStyleClass().add("ladder-container");
+
+        // now inject and initialize
+        controller = new GameController(); // create controller and inject dependencies
+        controller.setImagesDir(Path.of("C:/Users/Taylor/git/Quantum_Millionaire_Local/How_To_Be_A_MIllionaire/Resources/sprites/money_ladder"));
+        controller.setLadderContainer(moneyLadder);  // inject the Pane that will hold the ladder BEFORE calling initialize()
+        controller.setRungSize(263, 45);
+        controller.initialize(); // initialize the controller (creates ladder and attaches it because container is set)
+
+
+        // get the ladder VBox if you still need direct reference
+        moneyLadder = controller.getLadderVBox();   // get the ladder VBox the controller created
+        if (moneyLadder == null) {
+            // fallback to old local creation if controller failed
+            moneyLadder = createMoneyLadder_LocalGS();
+        }
+        moneyLadder.relocate(30, 75);
+
         
         // 6b. Dashboard (Top Right)
         topRightDashboard = createTopRightDashboard();
@@ -322,7 +348,7 @@ public class GameStage {
         updateViewMode(false);
     }
 
-    private VBox createMoneyLadder() {
+    private VBox createMoneyLadder_LocalGS() {
         VBox ladder = new VBox(5);
         ladder.setAlignment(Pos.CENTER_LEFT);
         ladder.setPadding(new Insets(15));
@@ -446,40 +472,66 @@ public class GameStage {
     private StackPane createMenuDiamond() {
         StackPane diamondContainer = new StackPane();
         diamondContainer.setAlignment(Pos.CENTER);
-        
+
         Button menuBtn = new Button();
-        menuBtn.getStyleClass().add("menu-diamond"); 
+        menuBtn.getStyleClass().add("menu-diamond");
         menuBtn.setScaleX(1.5);
         menuBtn.setScaleY(1.5);
 
         // --- CONTEXT MENU LOGIC FROM DOC 1 ---
         ContextMenu menu = new ContextMenu();
-        
+
         Menu lM = new Menu("Language");
         MenuItem eI = new MenuItem("English"); MenuItem fI = new MenuItem("فارسی");
         eI.setOnAction(e -> switchToEnglish()); fI.setOnAction(e -> switchToFarsi());
         lM.getItems().addAll(eI, fI);
 
-        Menu cM = new Menu("Colors");
-        MenuItem dC = new MenuItem("Default"); MenuItem deutC = new MenuItem("Deuteranopia"); MenuItem tritC = new MenuItem("Tritanopia");
-        dC.setOnAction(e -> applyTheme("default")); deutC.setOnAction(e -> applyTheme("theme-deuteranopia")); tritC.setOnAction(e -> applyTheme("theme-tritanopia"));
-        cM.getItems().addAll(dC, deutC, tritC);
+        // Insert the Colors menu from the controller (single source of truth).
+        // If controller is not available yet, build a local fallback menu that delegates at click time.
+        if (controller != null) {
+            menu.getItems().add(controller.getColorsMenu());
+        } else {
+            // Fallback: build a local Colors menu that delegates to controller at runtime
+            Menu cM = new Menu("Colors");
+            MenuItem dC = new MenuItem("Default");
+            MenuItem deutC = new MenuItem("Deuteranopia");
+            MenuItem tritC = new MenuItem("Tritanopia");
+
+            dC.setOnAction(e -> {
+                if (controller != null) controller.applyTheme("default");
+                else applyTheme("default");
+            });
+            deutC.setOnAction(e -> {
+                if (controller != null) controller.applyTheme("theme-deuteranopia");
+                else applyTheme("theme-deuteranopia");
+            });
+            tritC.setOnAction(e -> {
+                if (controller != null) controller.applyTheme("theme-tritanopia");
+                else applyTheme("theme-tritanopia");
+            });
+
+            cM.getItems().addAll(dC, deutC, tritC);
+            menu.getItems().add(cM);
+        }
 
         Menu lnf = new Menu("Look and Feel");
         MenuItem mod = new MenuItem("Modern"); MenuItem cls = new MenuItem("Classic");
         mod.setOnAction(e -> applyLookAndFeel("modern-style")); cls.setOnAction(e -> applyLookAndFeel("classic-style"));
         lnf.getItems().addAll(mod, cls);
 
-        menu.getItems().addAll(lM, cM, lnf);
+        // If controller.getColorsMenu() was added above, don't add a second Colors menu here.
+        // Add the remaining menus and wire the button to show the context menu.
+        menu.getItems().addAll(lM, lnf);
         menuBtn.setOnAction(e -> menu.show(menuBtn, Side.TOP, 0, -60));
 
-        Label icon = new Label("☰"); 
+        Label icon = new Label("☰");
         icon.setStyle("-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;");
-        icon.setMouseTransparent(true); 
+        icon.setMouseTransparent(true);
 
         diamondContainer.getChildren().addAll(menuBtn, icon);
         return diamondContainer;
     }
+
 
     // ==============================================================================================
     // LOGIC & HELPER METHODS (From Doc 1)
@@ -502,11 +554,27 @@ public class GameStage {
         earnTitle.setText("EARNINGS:"); timeLabel.setText("24 SEC");
         root.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
     }
+    
 
+    // applyTheme in GameStage
     private void applyTheme(String t) {
-        root.getStyleClass().removeAll("theme-deuteranopia", "theme-tritanopia");
-        if (!t.equals("default")) root.getStyleClass().add(t);
+        // remove previously applied theme class
+        if (!"default".equals(activeTheme)) {
+            root.getStyleClass().remove(activeTheme);
+        }
+
+        // apply the new theme class
+        if (!"default".equals(t)) {
+            root.getStyleClass().add(t);
+        }
+
+        // update tracker
+        activeTheme = t;
+
+        // delegate to controller for asset switching
+        if (controller != null) controller.applyTheme(t);
     }
+
 
     private void applyLookAndFeel(String s) {
         root.getStyleClass().removeAll("modern-style", "classic-style");
