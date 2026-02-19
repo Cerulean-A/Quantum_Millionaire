@@ -2,6 +2,7 @@ package qgame;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
@@ -26,46 +27,53 @@ import java.util.Map;
  * Theme state (cssTheme) and ladder asset switching live here. GameStage should delegate theme changes
  * to controller.applyTheme(...) so CSS + assets remain in sync.
  */
-public class GameController {
+public class GameBrain_Controller {
 
-    // Constructor accessor for the ladder VBox so other classes can query it
-    public VBox getLadderVBox() {
-        return myLadderVBox;
-    }
-
-    // UI container in your layout where ladder will be added.
-    // Previously annotated with @FXML; for programmatic usage we provide a public setter.
-    // If you later use FXML, the loader will still inject this field if you re-add @FXML.
-    private Pane ladderContainer; // a placeholder Pane in your layout where ladder will be added
-
-    /**
-     * Non-FXML setter for programmatic injection.
-     * Call this from GameStage before initialize() to ensure the ladder is attached immediately.
-     */
-    public void setLadderContainer(Pane ladderContainer) {
-        this.ladderContainer = ladderContainer;
-    }
-
-    // Rung Fields
-    private double rungWidth = 240;
-    private double rungHeight = 40;
-
-    // Keep a reference to the ladder VBox so you can call setActive/setFinished/setScheme later
-    private VBox myLadderVBox;
-
-    // Track current CSS theme name (string used by your applyTheme logic)
-    private String cssTheme = "default"; // default at startup
-
-    // Example menu (you may build this in FXML instead)
-    private Menu colorsMenu;
-
-    // Images folder (adjust to your project)
-    // Make this assignable so GameStage can override the path if needed
+    private final Stage primaryStage;
+    private final GameState_Model gameState;			// MVC Model object
+    private GameStage_View gameView;					// MVC View object
+    
+    // Ladder-related fields (unchanged)
+    private Pane ladderContainer;						// a placeholder Pane in your layout where ladder will be added
+    private double rungWidth = 240;						// Rung Fields
+    private double rungHeight = 40;						// Rung Fields
+    private VBox myLadderVBox;							// ladder vBox reference to setActive/setFinished/setScheme later
+    private String cssTheme = "default";				// default at startup // Track current CSS theme name
+    private Menu colorsMenu;							// Example menu (you may build this in FXML instead)
+    private final Map<Integer, String> pearlMap = new HashMap<>();	// Pearl variant mapping (index -> variant token)
+    
     private Path imagesDir = Path.of("C:/Users/Taylor/git/Quantum_Millionaire_Local/How_To_Be_A_MIllionaire/Resources/sprites/money_ladder");
+														// Images folder (adjust to your project)
+														// Make this assignable so GameStage can override the path if needed	
+    // ---------------------------------------------------------------
+    // Constructor
+    // ---------------------------------------------------------------
+    public GameBrain_Controller(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+        this.gameState = new GameState_Model();
+    }
 
-    // Pearl variant mapping (index -> variant token)
-    private final Map<Integer, String> pearlMap = new HashMap<>();
+    // ---------------------------------------------------------------
+    // GameBrain_Controller Start Methods (called by FrontPage)
+    // ---------------------------------------------------------------
+    public void startGameInPlayMode() {
+        gameView = new GameStage_View(primaryStage, this);
+        primaryStage.setScene(gameView.getScene());
+        primaryStage.setTitle("Quantum Millionaire - Play Mode");
+    }
 
+    public void startGameInDesignMode() {
+        gameView = new GameStage_View(primaryStage, this);
+        gameView.showDesignModePanel();
+        primaryStage.setScene(gameView.getScene());
+        primaryStage.setTitle("Quantum Millionaire - Design Mode");
+    }
+
+    // ---------------------------------------------------------------
+    // GameBrain (Controller) -- Primary Methods
+    // ---------------------------------------------------------------
+
+  
     /**
      * Set the design size for ladder rungs.
      *
@@ -249,5 +257,125 @@ public class GameController {
 
     public void resetLadder() {
         MoneyLadderFactory.resetAll(myLadderVBox);
+    }
+
+    
+    //---------------------------------------------------------------
+    // General Helper Functions
+    //---------------------------------------------------------------
+   
+    
+    
+    
+    //---------------------------------------------------------------
+    // Main Menu in Game (ESC Key Activated)  -- Controller Portion
+    //---------------------------------------------------------------
+    
+    //---------------------------------------------------------------
+    // Show menu on Toggle
+    public void onPauseToggleRequested() {
+        if (!gameState.isPaused()) {
+            gameState.setPaused(true);
+            gameView.applyPause();
+            gameView.showPauseMenu();
+        } else {
+            gameState.setPaused(false);
+            gameView.applyResume();
+            gameView.hidePauseMenu();
+        }
+    }
+
+    //---------------------------------------------------------------
+    // Turns on Developer Options in pause version of main menu.
+    public void onDevTogglePressed() {
+        boolean newValue = !gameState.isDevOptionsEnabled();
+        gameState.setDevOptionsEnabled(newValue);
+        gameView.refreshPauseMenu();
+    }
+
+
+    //---------------------------------------------------------------
+    // Pause Menu Callback Functions
+    public void onResumeRequested() {
+        gameState.setPaused(false);
+        gameView.applyResume();
+        gameView.hidePauseMenu();
+    }
+
+    public void onSaveRequested() {
+        System.out.println("[TODO] Save Game");
+    }
+
+    public void onLoadRequested() {
+        System.out.println("[TODO] Load Game");
+    }
+
+    // Shows the settings panel upon request
+    public void onSettingsRequested() {
+        gameView.showSettingsPanel();
+    }
+
+    // SETTINGS Option - Language Selected Selection
+    public void onLanguageSelected(String lang) {
+        switch (lang) {
+            case "english": gameView.applyLanguageEnglish(); break;
+            case "farsi":   gameView.applyLanguageFarsi();   break;
+        }
+    }
+    
+    // SETTINGS Option - Apply Selected Theme
+    public void onThemeSelected(String themeName) {
+    	gameView.applyTheme(themeName);
+    }
+
+    // SETTINGS Option - Apply Colourblind Mode
+    public void onColorModeSelected(String mode) {
+    	gameView.applyTheme(mode);
+    }
+
+    // SETTINGS Option - 'Look and Feel' Application
+    public void onLookAndFeelSelected(String style) {
+    	gameView.applyLookAndFeel(style);
+    }
+
+    public void onReturnToMainMenuRequested() {
+        System.out.println("[TODO] Return to Main Menu");
+    }
+
+    public void onQuitRequested() {
+        System.exit(0);
+    }
+
+
+ public void onPlayModeRequested() {
+     gameView.showPlayMode();
+ }
+
+ public void onDesignModeRequested() {
+     gameView.showDesignModePanel();
+ }
+
+    
+    //---------------------------------------------------------------
+    // GameBrain (Controller) Getters and Setters
+    //---------------------------------------------------------------   
+
+    // Model object Getter
+    public GameState_Model getGameState() { 
+    	return gameState; 
+    }
+    
+    // View object Setter
+    public void setView(GameStage_View view) {
+        this.gameView = view;
+    }
+    
+    // UI container in the layout where ladder will be added.
+    /**
+     * Non-FXML setter for programmatic injection.
+     * Call this from GameStage before initialize() to ensure the ladder is attached immediately.
+     */
+    public void setLadderContainer(Pane ladderContainer) {
+        this.ladderContainer = ladderContainer;
     }
 }
